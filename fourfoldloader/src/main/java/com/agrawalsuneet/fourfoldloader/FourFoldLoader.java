@@ -2,24 +2,29 @@ package com.agrawalsuneet.fourfoldloader;
 
 
 import android.animation.Animator;
-import android.animation.ObjectAnimator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.View;
 import android.widget.RelativeLayout;
 
 /**
  * Created by ballu on 09/04/17.
  */
 
-public class FourFoldLoader extends RelativeLayout {
+public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorListener {
 
     private Context mContext;
-
     private int squareLenght;
+
+    private int noOfSquareVisible = 4;
+    private int mainSquare = 1;
+    private boolean isClosing = true;
+
+    private AnimatorSet mainAnimatorSet = null;
 
     private int firstSquareColor = getResources().getColor(R.color.red),
             secondSquareColor = getResources().getColor(R.color.green),
@@ -30,6 +35,7 @@ public class FourFoldLoader extends RelativeLayout {
 
     private int aminDuration = 500;
 
+    private boolean isLoading;
 
     public FourFoldLoader(Context context) {
         super(context);
@@ -112,9 +118,21 @@ public class FourFoldLoader extends RelativeLayout {
         addView(thirdSquare);
 
         requestLayout();
+
+        firstSquare.setPivotX(squareLenght);
+        firstSquare.setPivotY(squareLenght);
+
+        secondSquare.setPivotX(0);
+        secondSquare.setPivotY(squareLenght);
+
+        thirdSquare.setPivotX(0);
+        thirdSquare.setPivotY(0);
+
+        forthSquare.setPivotX(squareLenght);
+        forthSquare.setPivotY(0);
     }
 
-    public void startAmination() {
+    /*public void startAmination() {
 
         forthSquare.setPivotX(100);
         forthSquare.setPivotY(0);
@@ -140,8 +158,7 @@ public class FourFoldLoader extends RelativeLayout {
                 thirdSquare.setVisibility(View.GONE);
 
                 secondSquare.setPivotX(0);
-                ObjectAnimator anim2 = ObjectAnimator.ofFloat(secondSquare, "rotationY", 0, -
-                        180);
+                ObjectAnimator anim2 = ObjectAnimator.ofFloat(secondSquare, "rotationY", 0, -180);
                 anim2.setDuration(aminDuration);
                 anim2.start();
             }
@@ -156,8 +173,49 @@ public class FourFoldLoader extends RelativeLayout {
 
             }
         });
+    }*/
 
+    public void startAnimation() {
 
+        if (noOfSquareVisible == 4) {
+            if (isClosing) {
+                mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_close_up);
+                mainAnimatorSet.setTarget(forthSquare);
+                mainAnimatorSet.start();
+
+                AnimatorSet thirdSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_close_up);
+                thirdSet.setTarget(thirdSquare);
+                thirdSet.start();
+
+                noOfSquareVisible = 2;
+            } else {
+
+            }
+
+        } else if (noOfSquareVisible == 2) {
+            mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_close_left);
+            mainAnimatorSet.setTarget(secondSquare);
+            mainAnimatorSet.start();
+            noOfSquareVisible = 1;
+
+        } else if (noOfSquareVisible == 1) {
+            mainAnimatorSet.removeAllListeners();
+            isLoading = false;
+            return;
+        }
+
+        mainAnimatorSet.addListener(this);
+        isLoading = true;
+    }
+
+    public void stopAnimation() {
+        if (mainAnimatorSet != null) {
+            mainAnimatorSet.addListener(null);
+        }
+        removeAllViews();
+        initView();
+        isLoading = false;
+        noOfSquareVisible = 4;
     }
 
     private int dpToPx(Context context, int dp) {
@@ -166,4 +224,25 @@ public class FourFoldLoader extends RelativeLayout {
     }
 
 
+    public boolean isLoading() {
+        return isLoading;
+    }
+
+    @Override
+    public void onAnimationEnd(Animator animation) {
+        isLoading = false;
+        startAnimation();
+    }
+
+    @Override
+    public void onAnimationStart(Animator animation) {
+    }
+
+    @Override
+    public void onAnimationCancel(Animator animation) {
+    }
+
+    @Override
+    public void onAnimationRepeat(Animator animation) {
+    }
 }

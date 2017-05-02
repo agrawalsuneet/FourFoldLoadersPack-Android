@@ -3,9 +3,9 @@
     android:ordering="together">
     <objectAnimator
         android:duration="1000"
-        android:propertyName="rotationX"
+        android:propertyName="rotationY"
         android:valueFrom="180"
-        android:valueTo="0"
+        android:valueTo="360"
         android:valueType="floatType" />
     <objectAnimator
         android:duration="1000"

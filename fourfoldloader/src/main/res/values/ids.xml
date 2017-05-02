@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="firstSquareId" type="id" />
+    <item name="secondSquareId" type="id" />
+    <item name="thirdSquareId" type="id" />
+    <item name="forthSquareId" type="id" />
+
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SquareLoader">
+        <attr name="loader_squareLength" format="integer" />
+        <attr name="loader_solidColor" format="color" />
+        <attr name="loader_firstSquareColor" format="color" />
+        <attr name="loader_secondSquareColor" format="color" />
+        <attr name="loader_thirdSquareColor" format="color" />
+        <attr name="loader_forthSquareColor" format="color" />
+        <attr name="loader_animDuration" format="integer" />
+    </declare-styleable>
+
+</resources>

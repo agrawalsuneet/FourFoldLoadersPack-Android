@@ -9,9 +9,15 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.widget.RelativeLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ballu on 09/04/17.
@@ -36,6 +42,8 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
             forthSquareColor = getResources().getColor(R.color.grey);
 
     private SquareLayout firstSquare, secondSquare, thirdSquare, forthSquare;
+
+    private List<View> viewsToHide;
 
     private int animDuration = 1000;
 
@@ -138,6 +146,8 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
 
     public void startAnimation() {
 
+        viewsToHide = new ArrayList<>();
+
         if (noOfSquareVisible == 4) {
             mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_close_up);
             mainAnimatorSet.setTarget(forthSquare);
@@ -151,6 +161,9 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
             thirdSet.setInterpolator(interpolator);
             thirdSet.start();
 
+            viewsToHide.add(forthSquare);
+            viewsToHide.add(thirdSquare);
+
             isClosing = true;
             noOfSquareVisible = 2;
         } else if (noOfSquareVisible == 2) {
@@ -160,8 +173,13 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
                 mainAnimatorSet.setDuration(animDuration);
                 mainAnimatorSet.setInterpolator(interpolator);
                 mainAnimatorSet.start();
+
+                viewsToHide.add(secondSquare);
                 noOfSquareVisible = 1;
             } else {
+                forthSquare.setVisibility(VISIBLE);
+                thirdSquare.setVisibility(VISIBLE);
+
                 mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_open_down);
                 mainAnimatorSet.setTarget(forthSquare);
                 mainAnimatorSet.setDuration(animDuration);
@@ -178,6 +196,8 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
             }
 
         } else if (noOfSquareVisible == 1) {
+            secondSquare.setVisibility(VISIBLE);
+
             mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
             mainAnimatorSet.setTarget(secondSquare);
             mainAnimatorSet.setDuration(animDuration);
@@ -215,7 +235,40 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
     @Override
     public void onAnimationEnd(Animator animation) {
         isLoading = false;
-        startAnimation();
+
+        if (viewsToHide != null && viewsToHide.size() > 0){
+
+            AlphaAnimation alphaAnimation = new AlphaAnimation(0.5f, 0f);
+            alphaAnimation.setDuration(300);
+            alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    for (View view : viewsToHide){
+                        view.setVisibility(GONE);
+                    }
+                    startAnimation();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            for (View view : viewsToHide){
+                view.startAnimation(alphaAnimation);
+                //view.setVisibility(GONE);
+            }
+        } else {
+            startAnimation();
+        }
+
+
     }
 
     @Override

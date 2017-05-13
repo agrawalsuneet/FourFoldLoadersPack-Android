@@ -11,8 +11,8 @@
         <attr name="loader_animDuration" format="integer" />
     </declare-styleable>
 
-    <integer name="anim_duration">1000</integer>
+    <integer name="anim_duration">2000</integer>
     <item name="from_alpha" format="float" type="dimen">1.0</item>
-    <item name="to_alpha" format="float" type="dimen">0.3</item>
+    <item name="to_alpha" format="float" type="dimen">1.0</item>
 
 </resources>

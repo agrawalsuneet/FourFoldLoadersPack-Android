@@ -29,7 +29,7 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
     private int squareLenght;
 
     private int noOfSquareVisible = 4;
-    private int mainSquare = 1;
+    private int mainSquare = 3;
     private boolean isClosing = true;
 
     private AnimatorSet mainAnimatorSet = null;
@@ -130,18 +130,6 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
         addView(thirdSquare);
 
         requestLayout();
-
-        firstSquare.setPivotX(squareLenght);
-        firstSquare.setPivotY(squareLenght);
-
-        secondSquare.setPivotX(0);
-        secondSquare.setPivotY(squareLenght);
-
-        thirdSquare.setPivotX(0);
-        thirdSquare.setPivotY(0);
-
-        forthSquare.setPivotX(squareLenght);
-        forthSquare.setPivotY(0);
     }
 
     public void startAnimation() {
@@ -149,7 +137,33 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
         viewsToHide = new ArrayList<>();
 
         if (noOfSquareVisible == 4) {
-            mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_close_up);
+            switch (mainSquare) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.top_close_down);
+                    mainAnimatorSet.setTarget(firstSquare);
+                    mainAnimatorSet.setDuration(animDuration);
+                    mainAnimatorSet.setInterpolator(interpolator);
+                    mainAnimatorSet.start();
+
+                    AnimatorSet thirdSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.top_close_down);
+                    thirdSet.setTarget(secondSquare);
+                    thirdSet.setDuration(animDuration);
+                    thirdSet.setInterpolator(interpolator);
+                    thirdSet.start();
+
+                    viewsToHide.add(firstSquare);
+                    viewsToHide.add(secondSquare);
+
+                    break;
+                case 4:
+                    break;
+            }
+
+            /*mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_close_up);
             mainAnimatorSet.setTarget(forthSquare);
             mainAnimatorSet.setDuration(animDuration);
             mainAnimatorSet.setInterpolator(interpolator);
@@ -162,7 +176,7 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
             thirdSet.start();
 
             viewsToHide.add(forthSquare);
-            viewsToHide.add(thirdSquare);
+            viewsToHide.add(thirdSquare);*/
 
             isClosing = true;
             noOfSquareVisible = 2;
@@ -177,7 +191,34 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
                 viewsToHide.add(secondSquare);
                 noOfSquareVisible = 1;
             } else {
-                forthSquare.setVisibility(VISIBLE);
+                switch (mainSquare) {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        secondSquare.setVisibility(VISIBLE);
+                        thirdSquare.setVisibility(VISIBLE);
+
+                        mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
+                        mainAnimatorSet.setTarget(secondSquare);
+                        mainAnimatorSet.setDuration(animDuration);
+                        mainAnimatorSet.setInterpolator(interpolator);
+                        mainAnimatorSet.start();
+
+                        AnimatorSet thirdSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
+                        thirdSet.setTarget(thirdSquare);
+                        thirdSet.setDuration(animDuration);
+                        thirdSet.setInterpolator(interpolator);
+                        thirdSet.start();
+
+                        break;
+                    case 4:
+                        break;
+                }
+
+
+                /*forthSquare.setVisibility(VISIBLE);
                 thirdSquare.setVisibility(VISIBLE);
 
                 mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_open_down);
@@ -190,19 +231,39 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
                 thirdSet.setTarget(thirdSquare);
                 thirdSet.setDuration(animDuration);
                 thirdSet.setInterpolator(interpolator);
-                thirdSet.start();
+                thirdSet.start();*/
 
                 noOfSquareVisible = 4;
             }
 
         } else if (noOfSquareVisible == 1) {
-            secondSquare.setVisibility(VISIBLE);
+            switch (mainSquare) {
+                case 1:
+                    forthSquare.setVisibility(VISIBLE);
+
+                    mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_open_down);
+                    mainAnimatorSet.setTarget(forthSquare);
+                    mainAnimatorSet.setDuration(animDuration);
+                    mainAnimatorSet.setInterpolator(interpolator);
+                    mainAnimatorSet.start();
+
+                    mainSquare = 3;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+            }
+
+            /*secondSquare.setVisibility(VISIBLE);
 
             mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
             mainAnimatorSet.setTarget(secondSquare);
             mainAnimatorSet.setDuration(animDuration);
             mainAnimatorSet.setInterpolator(interpolator);
-            mainAnimatorSet.start();
+            mainAnimatorSet.start();*/
 
             noOfSquareVisible = 2;
             isClosing = false;
@@ -236,33 +297,32 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
     public void onAnimationEnd(Animator animation) {
         isLoading = false;
 
-        if (viewsToHide != null && viewsToHide.size() > 0){
+        if (viewsToHide != null && viewsToHide.size() > 0) {
 
-            AlphaAnimation alphaAnimation = new AlphaAnimation(0.5f, 0f);
+            AlphaAnimation alphaAnimation = new AlphaAnimation(R.dimen.to_alpha, 0f);
             alphaAnimation.setDuration(300);
             alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-
                 }
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    for (View view : viewsToHide){
-                        view.setVisibility(GONE);
+                    for (View view : viewsToHide) {
+                        view.setVisibility(INVISIBLE);
+                        view.setRotationX(0);
+                        view.setRotationY(0);
                     }
                     startAnimation();
                 }
 
                 @Override
                 public void onAnimationRepeat(Animation animation) {
-
                 }
             });
 
-            for (View view : viewsToHide){
+            for (View view : viewsToHide) {
                 view.startAnimation(alphaAnimation);
-                //view.setVisibility(GONE);
             }
         } else {
             startAnimation();

@@ -156,6 +156,7 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
         if (noOfSquareVisible == 4) {
             switch (mainSquare) {
                 case 1:
+                case 2:
                     this.getOverlay().add(thirdSquare);
                     this.getOverlay().add(forthSquare);
 
@@ -178,9 +179,9 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
                     viewsToHide.add(forthSquare);
 
                     break;
-                case 2:
-                    break;
+
                 case 3:
+                case 4:
                     this.getOverlay().add(firstSquare);
                     this.getOverlay().add(secondSquare);
 
@@ -203,8 +204,6 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
                     viewsToHide.add(secondSquare);
 
                     break;
-                case 4:
-                    break;
             }
 
             isClosing = true;
@@ -215,79 +214,57 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
                 //fold is closing
 
                 switch (mainSquare) {
+
                     case 1:
+                    case 4:
+                        //if mainSquare is 1 than 2 should close
+                        //or if main square is 4 than 3 should close
+                        View targetView = (mainSquare == 1 ? secondSquare : thirdSquare);
                         topLinearLayout.setGravity(Gravity.LEFT);
                         bottomLinearLayout.setGravity(Gravity.LEFT);
 
-                        this.getOverlay().add(secondSquare);
-                        viewsOverlay.add(secondSquare);
+                        this.getOverlay().add(targetView);
+                        viewsOverlay.add(targetView);
 
                         mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_close_left);
-                        mainAnimatorSet.setTarget(secondSquare);
+                        mainAnimatorSet.setTarget(targetView);
                         mainAnimatorSet.setDuration(animDuration);
                         mainAnimatorSet.setInterpolator(interpolator);
                         mainAnimatorSet.start();
 
-                        viewsToHide.add(secondSquare);
+                        viewsToHide.add(targetView);
 
                         break;
+
                     case 2:
-                        break;
                     case 3:
-                        this.getOverlay().add(forthSquare);
-                        viewsOverlay.add(forthSquare);
+                        //if mainSquare is 2 than 1 should close
+                        //or if main square is 3 than 4 should close
+                        targetView = (mainSquare == 2 ? firstSquare : forthSquare);
+
+                        topLinearLayout.setGravity(Gravity.RIGHT);
+                        bottomLinearLayout.setGravity(Gravity.RIGHT);
+
+                        this.getOverlay().add(targetView);
+                        viewsOverlay.add(targetView);
 
                         mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.left_close_right);
-                        mainAnimatorSet.setTarget(forthSquare);
+                        mainAnimatorSet.setTarget(targetView);
                         mainAnimatorSet.setDuration(animDuration);
                         mainAnimatorSet.setInterpolator(interpolator);
                         mainAnimatorSet.start();
 
-                        viewsToHide.add(forthSquare);
+                        viewsToHide.add(targetView);
 
-                        break;
-                    case 4:
                         break;
                 }
 
-
-               /* mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_close_left);
-                mainAnimatorSet.setTarget(secondSquare);
-                mainAnimatorSet.setDuration(animDuration);
-                mainAnimatorSet.setInterpolator(interpolator);
-                mainAnimatorSet.start();
-
-                viewsToHide.add(secondSquare);*/
                 noOfSquareVisible = 1;
             } else if (!isClosing) {
                 // fold is opening
 
                 switch (mainSquare) {
                     case 1:
-                        break;
-                    case 2:
-                        this.getOverlay().add(firstSquare);
-                        this.getOverlay().add(forthSquare);
-
-                        viewsOverlay.add(firstSquare);
-                        viewsOverlay.add(forthSquare);
-
-                        firstSquare.setVisibility(VISIBLE);
-                        forthSquare.setVisibility(VISIBLE);
-
-                        mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.left_open_left);
-                        mainAnimatorSet.setTarget(firstSquare);
-                        mainAnimatorSet.setDuration(animDuration);
-                        mainAnimatorSet.setInterpolator(interpolator);
-                        mainAnimatorSet.start();
-
-                        AnimatorSet anotherSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.left_open_left);
-                        anotherSet.setTarget(forthSquare);
-                        anotherSet.setDuration(animDuration);
-                        anotherSet.setInterpolator(interpolator);
-                        anotherSet.start();
-
-                        break;
                     case 3:
                         this.getOverlay().add(secondSquare);
                         this.getOverlay().add(thirdSquare);
@@ -304,32 +281,39 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
                         mainAnimatorSet.setInterpolator(interpolator);
                         mainAnimatorSet.start();
 
-                        anotherSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
+                        AnimatorSet anotherSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
                         anotherSet.setTarget(thirdSquare);
                         anotherSet.setDuration(animDuration);
                         anotherSet.setInterpolator(interpolator);
                         anotherSet.start();
 
                         break;
+                    case 2:
                     case 4:
+                        this.getOverlay().add(firstSquare);
+                        this.getOverlay().add(forthSquare);
+
+                        viewsOverlay.add(firstSquare);
+                        viewsOverlay.add(forthSquare);
+
+                        firstSquare.setVisibility(VISIBLE);
+                        forthSquare.setVisibility(VISIBLE);
+
+                        mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.left_open_left);
+                        mainAnimatorSet.setTarget(firstSquare);
+                        mainAnimatorSet.setDuration(animDuration);
+                        mainAnimatorSet.setInterpolator(interpolator);
+                        mainAnimatorSet.start();
+
+                        anotherSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.left_open_left);
+                        anotherSet.setTarget(forthSquare);
+                        anotherSet.setDuration(animDuration);
+                        anotherSet.setInterpolator(interpolator);
+                        anotherSet.start();
+
                         break;
+
                 }
-
-
-                /*forthSquare.setVisibility(VISIBLE);
-                thirdSquare.setVisibility(VISIBLE);
-
-                mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_open_down);
-                mainAnimatorSet.setTarget(forthSquare);
-                mainAnimatorSet.setDuration(animDuration);
-                mainAnimatorSet.setInterpolator(interpolator);
-                mainAnimatorSet.start();
-
-                AnimatorSet anotherSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_open_down);
-                anotherSet.setTarget(thirdSquare);
-                anotherSet.setDuration(animDuration);
-                anotherSet.setInterpolator(interpolator);
-                anotherSet.start();*/
 
                 noOfSquareVisible = 4;
             }
@@ -337,46 +321,41 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
         } else if (noOfSquareVisible == 1) {
             switch (mainSquare) {
                 case 1:
-                    this.getOverlay().add(forthSquare);
-                    viewsOverlay.add(forthSquare);
+                case 2:
+                    View targetView = (mainSquare == 1 ? forthSquare : thirdSquare);
 
-                    forthSquare.setVisibility(VISIBLE);
+                    this.getOverlay().add(targetView);
+                    viewsOverlay.add(targetView);
+
+                    targetView.setVisibility(VISIBLE);
 
                     mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_open_down);
-                    mainAnimatorSet.setTarget(forthSquare);
+                    mainAnimatorSet.setTarget(targetView);
                     mainAnimatorSet.setDuration(animDuration);
                     mainAnimatorSet.setInterpolator(interpolator);
                     mainAnimatorSet.start();
 
-                    mainSquare = 3;
+                    mainSquare += 2;
                     break;
-                case 2:
-                    break;
-                case 3:
-                    this.getOverlay().add(secondSquare);
-                    viewsOverlay.add(secondSquare);
 
-                    secondSquare.setVisibility(VISIBLE);
+                case 3:
+                case 4:
+                    targetView = (mainSquare == 3 ? secondSquare : firstSquare);
+
+                    this.getOverlay().add(targetView);
+                    viewsOverlay.add(targetView);
+
+                    targetView.setVisibility(VISIBLE);
 
                     mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.top_open_up);
-                    mainAnimatorSet.setTarget(secondSquare);
+                    mainAnimatorSet.setTarget(targetView);
                     mainAnimatorSet.setDuration(animDuration);
                     mainAnimatorSet.setInterpolator(interpolator);
                     mainAnimatorSet.start();
 
-                    mainSquare = 2;
-                    break;
-                case 4:
+                    mainSquare = (mainSquare == 3 ? 2 : 1);
                     break;
             }
-
-            /*secondSquare.setVisibility(VISIBLE);
-
-            mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
-            mainAnimatorSet.setTarget(secondSquare);
-            mainAnimatorSet.setDuration(animDuration);
-            mainAnimatorSet.setInterpolator(interpolator);
-            mainAnimatorSet.start();*/
 
             noOfSquareVisible = 2;
             isClosing = false;
@@ -388,9 +367,6 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
 
     @Override
     public void onAnimationEnd(Animator animation) {
-        /*if (noOfSquareVisible == 4){
-            return;
-        }*/
 
         isLoading = false;
 
@@ -407,7 +383,6 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
                 public void onAnimationEnd(Animation animation) {
                     for (View view : viewsToHide) {
                         view.setVisibility(INVISIBLE);
-                        view.setAlpha(1.0f);
                         view.setRotationX(0);
                         view.setRotationY(0);
                     }
@@ -424,14 +399,13 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
                 view.startAnimation(alphaAnimation);
             }
         } else {
-            //removeOverLays();
             startAnimation();
         }
     }
 
-    private void removeOverLays(){
-        if (viewsOverlay != null && viewsOverlay.size() > 0){
-            for (View view : viewsOverlay){
+    private void removeOverLays() {
+        if (viewsOverlay != null && viewsOverlay.size() > 0) {
+            for (View view : viewsOverlay) {
                 this.getOverlay().remove(view);
             }
         }
@@ -454,36 +428,4 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
     }
-
-
-    /*public void startAnimation() {
-
-        //Test Code
-
-        *//*secondSquare.setVisibility(INVISIBLE);
-        thirdSquare.setVisibility(INVISIBLE);*//*
-
-        *//*secondSquare.setVisibility(GONE);
-        forthSquare.setVisibility(GONE);*//*
-
-        this.getOverlay().add(firstSquare);
-        this.getOverlay().add(forthSquare);
-
-        mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.left_close_right);
-        mainAnimatorSet.setTarget(firstSquare);
-        mainAnimatorSet.setDuration(animDuration);
-        mainAnimatorSet.setInterpolator(interpolator);
-        mainAnimatorSet.start();
-
-        AnimatorSet anotherSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.left_close_right);
-        anotherSet.setTarget(forthSquare);
-        anotherSet.setDuration(animDuration);
-        anotherSet.setInterpolator(interpolator);
-        anotherSet.start();
-
-        //Test code ends here
-
-
-    }*/
-
 }

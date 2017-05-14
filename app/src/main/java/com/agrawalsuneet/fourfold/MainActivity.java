@@ -1,7 +1,8 @@
 package com.agrawalsuneet.fourfold;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,12 +28,13 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (loader.isLoading()){
-                    loader.stopAnimation();
+                    loader.stopLoading();
                 } else {
-                    loader.startAnimation();
+                    loader.startLoading();
                 }
+
+                Log.d("Suneet", Boolean.toString(loader.isLoading()));
             }
         });
     }

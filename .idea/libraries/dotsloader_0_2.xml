@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="dotsloader-0.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/a389fa42955b5d934c18740369645dc18b9900ba/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/a389fa42955b5d934c18740369645dc18b9900ba/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

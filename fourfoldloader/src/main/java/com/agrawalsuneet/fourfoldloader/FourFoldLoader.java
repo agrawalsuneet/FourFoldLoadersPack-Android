@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -25,15 +26,28 @@ import java.util.List;
 
 public class FourFoldLoader extends LinearLayout implements Animator.AnimatorListener {
 
-    private Context mContext;
+    //public variables
+    private boolean isLoading;
+
     private int squareLenght;
 
+    private int firstSquareColor = getResources().getColor(R.color.red),
+            secondSquareColor = getResources().getColor(R.color.green),
+            thirdSquareColor = getResources().getColor(R.color.blue),
+            forthSquareColor = getResources().getColor(R.color.grey);
+
+    private Interpolator interpolator = new AccelerateInterpolator();
+
+
+    private Context mContext;
     private int noOfSquareVisible = 4;
     private int mainSquare = 1;
     private boolean isClosing = true;
 
-    private AnimatorSet mainAnimatorSet = null;
-    private Interpolator interpolator = new AccelerateInterpolator();
+    private boolean isIntrupted = true;
+
+    private AnimatorSet mainAnimatorSet, anotherSet;
+    private AlphaAnimation disappearAlphaAnim;
 
     private LinearLayout topLinearLayout, bottomLinearLayout;
     private LinearLayout.LayoutParams topParams, bottomParams;
@@ -41,18 +55,9 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     private int animDur = 500,
             disappearAnimDur = 100;
 
-    private boolean isLoading;
-
     private List<View> viewsToHide;
 
-
-    private int firstSquareColor = getResources().getColor(R.color.red),
-            secondSquareColor = getResources().getColor(R.color.green),
-            thirdSquareColor = getResources().getColor(R.color.blue),
-            forthSquareColor = getResources().getColor(R.color.grey);
-
     private SquareLayout firstSquare, secondSquare, thirdSquare, forthSquare;
-
 
     public FourFoldLoader(Context context) {
         super(context);
@@ -105,6 +110,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
 
     private void initView() {
+        removeAllViews();
 
         this.setOrientation(VERTICAL);
 
@@ -150,7 +156,12 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
         forthSquare.setPivotY(0);
     }
 
-    public void startAnimation() {
+    public void startLoading() {
+        isIntrupted = false;
+        startAnimating();
+    }
+
+    private void startAnimating() {
         viewsToHide = new ArrayList<>();
 
         if (noOfSquareVisible == 4) {
@@ -166,7 +177,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
                     mainAnimatorSet.setInterpolator(interpolator);
                     mainAnimatorSet.start();
 
-                    AnimatorSet anotherSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_close_up);
+                    anotherSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_close_up);
                     anotherSet.setTarget(forthSquare);
                     anotherSet.setDuration(animDur);
                     anotherSet.setInterpolator(interpolator);
@@ -270,7 +281,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
                         mainAnimatorSet.setInterpolator(interpolator);
                         mainAnimatorSet.start();
 
-                        AnimatorSet anotherSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
+                        anotherSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
                         anotherSet.setTarget(thirdSquare);
                         anotherSet.setDuration(animDur);
                         anotherSet.setInterpolator(interpolator);
@@ -345,8 +356,13 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
             isClosing = false;
         }
 
-        mainAnimatorSet.addListener(this);
-        isLoading = true;
+        if (!isIntrupted) {
+            mainAnimatorSet.addListener(this);
+            isLoading = true;
+        } else {
+            mainAnimatorSet.removeListener(this);
+            isLoading = false;
+        }
     }
 
     @Override
@@ -354,35 +370,104 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
         isLoading = false;
 
-        if (viewsToHide != null && viewsToHide.size() > 0) {
+        if (!isIntrupted) {
+            if (viewsToHide != null && viewsToHide.size() > 0) {
 
-            AlphaAnimation alphaAnimation = new AlphaAnimation(R.dimen.to_alpha, 0f);
-            alphaAnimation.setDuration(disappearAnimDur);
-            alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    for (View view : viewsToHide) {
-                        view.setVisibility(INVISIBLE);
-                        view.setRotationX(0);
-                        view.setRotationY(0);
+                disappearAlphaAnim = new AlphaAnimation(R.dimen.to_alpha, 0f);
+                disappearAlphaAnim.setDuration(disappearAnimDur);
+                disappearAlphaAnim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        if (!isIntrupted) {
+                            for (View view : viewsToHide) {
+                                view.setVisibility(INVISIBLE);
+                                view.setRotationX(0);
+                                view.setRotationY(0);
+                            }
+                            startAnimating();
+                        }
                     }
-                    startAnimation();
-                }
 
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                    }
 
-            for (View view : viewsToHide) {
-                view.startAnimation(alphaAnimation);
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                    }
+                });
+
+                for (View view : viewsToHide) {
+                    view.startAnimation(disappearAlphaAnim);
+                }
+            } else {
+                startAnimating();
             }
-        } else {
-            startAnimation();
+        }
+    }
+
+    public void stopLoading() {
+
+        isLoading = false;
+        isIntrupted = true;
+
+        if (mainAnimatorSet != null) {
+            mainAnimatorSet.cancel();
+            mainAnimatorSet.removeListener(this);
+            mainAnimatorSet = null;
+        }
+        if (anotherSet != null) {
+            anotherSet.cancel();
+            anotherSet = null;
+        }
+
+        if (disappearAlphaAnim != null) {
+            disappearAlphaAnim.cancel();
+            disappearAlphaAnim.setAnimationListener(null);
+            disappearAlphaAnim = null;
+        }
+
+        List<View> viewsToReset = new ArrayList<>();
+        viewsToReset.add(firstSquare);
+        viewsToReset.add(secondSquare);
+        viewsToReset.add(thirdSquare);
+        viewsToReset.add(forthSquare);
+
+        for (View view : viewsToReset) {
+            view.setVisibility(INVISIBLE);
+            view.setRotationX(0);
+            view.setRotationY(0);
+        }
+
+        if (mainAnimatorSet != null || anotherSet != null || disappearAlphaAnim != null
+                || firstSquare.getVisibility() != INVISIBLE || secondSquare.getVisibility() != INVISIBLE
+                || thirdSquare.getVisibility() != INVISIBLE || forthSquare.getVisibility() != INVISIBLE ||
+                isLoading || !isIntrupted) {
+            Log.d("Suneet", "Animation not stopped yet");
+            stopLoading();
+        }
+
+        this.removeView(firstSquare);
+        this.removeView(secondSquare);
+        this.removeView(thirdSquare);
+        this.removeView(forthSquare);
+        firstSquare.setVisibility(GONE);
+        secondSquare.setVisibility(GONE);
+        thirdSquare.setVisibility(GONE);
+        forthSquare.setVisibility(GONE);
+        this.removeView(topLinearLayout);
+        this.removeView(bottomLinearLayout);
+        topLinearLayout.setVisibility(GONE);
+        bottomLinearLayout.setVisibility(GONE);
+        removeAllViews();
+        removeAllViewsInLayout();
+
+        initView();
+        noOfSquareVisible = 4;
+        mainSquare = 1;
+
+        if (isLoading || !isIntrupted){
+            stopLoading();
         }
     }
 
@@ -397,6 +482,18 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
     @Override
     public void onAnimationRepeat(Animator animation) {
+    }
+
+    public Interpolator getInterpolator() {
+        return interpolator;
+    }
+
+    public void setInterpolator(Interpolator interpolator) {
+        this.interpolator = interpolator;
+    }
+
+    public boolean isLoading() {
+        return isLoading;
     }
 
     private int dpToPx(Context context, int dp) {

@@ -388,9 +388,9 @@ public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorLi
 
     @Override
     public void onAnimationEnd(Animator animation) {
-        if (noOfSquareVisible == 4){
+        /*if (noOfSquareVisible == 4){
             return;
-        }
+        }*/
 
         isLoading = false;
 

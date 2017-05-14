@@ -1,5 +1,6 @@
 package com.agrawalsuneet.fourfoldloader;
 
+import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.content.Context;
@@ -8,15 +9,21 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ballu on 13/05/17.
  */
 
-public class FourFoldLoader2 extends LinearLayout {
+public class FourFoldLoader2 extends LinearLayout implements Animator.AnimatorListener {
 
     private Context mContext;
     private int squareLenght;
@@ -31,9 +38,11 @@ public class FourFoldLoader2 extends LinearLayout {
     private LinearLayout topLinearLayout, bottomLinearLayout;
     private LinearLayout.LayoutParams topParams, bottomParams;
 
-    private int animDuration = 5000;
+    private int animDuration = 1000;
 
     private boolean isLoading;
+
+    private List<View> viewsToHide, viewsOverlay;
 
 
     private int firstSquareColor = getResources().getColor(R.color.red),
@@ -68,7 +77,8 @@ public class FourFoldLoader2 extends LinearLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        setMeasuredDimension(2 * squareLenght, 2 * squareLenght);
+        setMeasuredDimension((2 * squareLenght) + getPaddingLeft() + getPaddingRight(),
+                (2 * squareLenght) + getPaddingTop() + getPaddingBottom());
     }
 
     private void initAttributes(AttributeSet attrs) {
@@ -121,14 +131,8 @@ public class FourFoldLoader2 extends LinearLayout {
         bottomParams.gravity = Gravity.RIGHT;
 
 
-
-
-        /*topLinearLayout.setLayoutParams(topParams);
-        bottomLinearLayout.setLayoutParams(bottomParams);*/
-
         addView(topLinearLayout, topParams);
         addView(bottomLinearLayout, bottomParams);
-
 
         requestLayout();
 
@@ -146,14 +150,231 @@ public class FourFoldLoader2 extends LinearLayout {
     }
 
     public void startAnimation() {
+        viewsToHide = new ArrayList<>();
+        viewsOverlay = new ArrayList<>();
+
+        if (noOfSquareVisible == 4) {
+            switch (mainSquare) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    this.getOverlay().add(firstSquare);
+                    this.getOverlay().add(secondSquare);
+
+                    viewsOverlay.add(firstSquare);
+                    viewsOverlay.add(secondSquare);
+
+                    mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.top_close_down);
+                    mainAnimatorSet.setTarget(firstSquare);
+                    mainAnimatorSet.setDuration(animDuration);
+                    mainAnimatorSet.setInterpolator(interpolator);
+                    mainAnimatorSet.start();
+
+                    AnimatorSet thirdSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.top_close_down);
+                    thirdSet.setTarget(secondSquare);
+                    thirdSet.setDuration(animDuration);
+                    thirdSet.setInterpolator(interpolator);
+                    thirdSet.start();
+
+                    viewsToHide.add(firstSquare);
+                    viewsToHide.add(secondSquare);
+
+                    break;
+                case 4:
+                    break;
+            }
+
+            isClosing = true;
+            noOfSquareVisible = 2;
+
+        } else if (noOfSquareVisible == 2) {
+            if (isClosing) {
+                switch (mainSquare) {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        this.getOverlay().add(forthSquare);
+                        viewsOverlay.add(forthSquare);
+
+                        mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.left_close_right);
+                        mainAnimatorSet.setTarget(forthSquare);
+                        mainAnimatorSet.setDuration(animDuration);
+                        mainAnimatorSet.setInterpolator(interpolator);
+                        mainAnimatorSet.start();
+
+                        viewsToHide.add(forthSquare);
+
+                        break;
+                    case 4:
+                        break;
+                }
+
+
+               /* mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_close_left);
+                mainAnimatorSet.setTarget(secondSquare);
+                mainAnimatorSet.setDuration(animDuration);
+                mainAnimatorSet.setInterpolator(interpolator);
+                mainAnimatorSet.start();
+
+                viewsToHide.add(secondSquare);*/
+                noOfSquareVisible = 1;
+            } else {
+                switch (mainSquare) {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        secondSquare.setVisibility(VISIBLE);
+                        thirdSquare.setVisibility(VISIBLE);
+
+                        mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
+                        mainAnimatorSet.setTarget(secondSquare);
+                        mainAnimatorSet.setDuration(animDuration);
+                        mainAnimatorSet.setInterpolator(interpolator);
+                        mainAnimatorSet.start();
+
+                        AnimatorSet thirdSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
+                        thirdSet.setTarget(thirdSquare);
+                        thirdSet.setDuration(animDuration);
+                        thirdSet.setInterpolator(interpolator);
+                        thirdSet.start();
+
+                        break;
+                    case 4:
+                        break;
+                }
+
+
+                /*forthSquare.setVisibility(VISIBLE);
+                thirdSquare.setVisibility(VISIBLE);
+
+                mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_open_down);
+                mainAnimatorSet.setTarget(forthSquare);
+                mainAnimatorSet.setDuration(animDuration);
+                mainAnimatorSet.setInterpolator(interpolator);
+                mainAnimatorSet.start();
+
+                AnimatorSet thirdSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_open_down);
+                thirdSet.setTarget(thirdSquare);
+                thirdSet.setDuration(animDuration);
+                thirdSet.setInterpolator(interpolator);
+                thirdSet.start();*/
+
+                noOfSquareVisible = 4;
+            }
+
+        } else if (noOfSquareVisible == 1) {
+            switch (mainSquare) {
+                case 1:
+                    forthSquare.setVisibility(VISIBLE);
+
+                    mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_open_down);
+                    mainAnimatorSet.setTarget(forthSquare);
+                    mainAnimatorSet.setDuration(animDuration);
+                    mainAnimatorSet.setInterpolator(interpolator);
+                    mainAnimatorSet.start();
+
+                    mainSquare = 3;
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+            }
+
+            /*secondSquare.setVisibility(VISIBLE);
+
+            mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
+            mainAnimatorSet.setTarget(secondSquare);
+            mainAnimatorSet.setDuration(animDuration);
+            mainAnimatorSet.setInterpolator(interpolator);
+            mainAnimatorSet.start();*/
+
+            noOfSquareVisible = 2;
+            isClosing = false;
+        }
+
+        mainAnimatorSet.addListener(this);
+        isLoading = true;
+    }
+
+    @Override
+    public void onAnimationEnd(Animator animation) {
+        isLoading = false;
+
+        if (viewsOverlay != null && viewsOverlay.size() > 0){
+            for (View view : viewsOverlay){
+                this.getOverlay().remove(view);
+            }
+        }
+
+        if (viewsToHide != null && viewsToHide.size() > 0) {
+
+            AlphaAnimation alphaAnimation = new AlphaAnimation(R.dimen.to_alpha, 0f);
+            alphaAnimation.setDuration(300);
+            alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    for (View view : viewsToHide) {
+                        view.setVisibility(INVISIBLE);
+                        view.setRotationX(0);
+                        view.setRotationY(0);
+                    }
+                    startAnimation();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+
+            for (View view : viewsToHide) {
+                view.startAnimation(alphaAnimation);
+            }
+        } else {
+            startAnimation();
+        }
+    }
+
+
+    @Override
+    public void onAnimationStart(Animator animation) {
+    }
+
+    @Override
+    public void onAnimationCancel(Animator animation) {
+    }
+
+    @Override
+    public void onAnimationRepeat(Animator animation) {
+    }
+
+    private int dpToPx(Context context, int dp) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
+    }
+
+
+    /*public void startAnimation() {
 
         //Test Code
 
-        /*secondSquare.setVisibility(INVISIBLE);
-        thirdSquare.setVisibility(INVISIBLE);*/
+        *//*secondSquare.setVisibility(INVISIBLE);
+        thirdSquare.setVisibility(INVISIBLE);*//*
 
-        /*secondSquare.setVisibility(GONE);
-        forthSquare.setVisibility(GONE);*/
+        *//*secondSquare.setVisibility(GONE);
+        forthSquare.setVisibility(GONE);*//*
 
         this.getOverlay().add(firstSquare);
         this.getOverlay().add(forthSquare);
@@ -173,11 +394,6 @@ public class FourFoldLoader2 extends LinearLayout {
         //Test code ends here
 
 
-    }
+    }*/
 
-
-    private int dpToPx(Context context, int dp) {
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
-    }
 }

@@ -11,9 +11,12 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -143,10 +146,10 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
 
     public void startAnimation() {
 
-        //Test Code
+        /*//Test Code
 
-        /*secondSquare.setVisibility(INVISIBLE);
-        thirdSquare.setVisibility(INVISIBLE);*/
+        *//*secondSquare.setVisibility(INVISIBLE);
+        thirdSquare.setVisibility(INVISIBLE);*//*
 
         this.getOverlay().add(firstSquare);
         this.getOverlay().add(forthSquare);
@@ -163,9 +166,9 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
         thirdSet.setInterpolator(interpolator);
         thirdSet.start();
 
-        //Test code ends here
+        //Test code ends here*/
 
-        /*viewsToHide = new ArrayList<>();
+        viewsToHide = new ArrayList<>();
 
         if (noOfSquareVisible == 4) {
             switch (mainSquare) {
@@ -194,7 +197,7 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
                     break;
             }
 
-            *//*mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_close_up);
+            /*mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_close_up);
             mainAnimatorSet.setTarget(forthSquare);
             mainAnimatorSet.setDuration(animDuration);
             mainAnimatorSet.setInterpolator(interpolator);
@@ -207,7 +210,7 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
             thirdSet.start();
 
             viewsToHide.add(forthSquare);
-            viewsToHide.add(thirdSquare);*//*
+            viewsToHide.add(thirdSquare);*/
 
             isClosing = true;
             noOfSquareVisible = 2;
@@ -249,7 +252,7 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
                 }
 
 
-                *//*forthSquare.setVisibility(VISIBLE);
+                /*forthSquare.setVisibility(VISIBLE);
                 thirdSquare.setVisibility(VISIBLE);
 
                 mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.bottom_open_down);
@@ -262,7 +265,7 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
                 thirdSet.setTarget(thirdSquare);
                 thirdSet.setDuration(animDuration);
                 thirdSet.setInterpolator(interpolator);
-                thirdSet.start();*//*
+                thirdSet.start();*/
 
                 noOfSquareVisible = 4;
             }
@@ -288,20 +291,20 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
                     break;
             }
 
-            *//*secondSquare.setVisibility(VISIBLE);
+            /*secondSquare.setVisibility(VISIBLE);
 
             mainAnimatorSet = (AnimatorSet) AnimatorInflater.loadAnimator(getContext(), R.animator.right_open_right);
             mainAnimatorSet.setTarget(secondSquare);
             mainAnimatorSet.setDuration(animDuration);
             mainAnimatorSet.setInterpolator(interpolator);
-            mainAnimatorSet.start();*//*
+            mainAnimatorSet.start();*/
 
             noOfSquareVisible = 2;
             isClosing = false;
         }
 
         mainAnimatorSet.addListener(this);
-        isLoading = true;*/
+        isLoading = true;
     }
 
     public void stopAnimation() {
@@ -326,11 +329,11 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
 
     @Override
     public void onAnimationEnd(Animator animation) {
-        this.getOverlay().remove(firstSquare);
+        /*this.getOverlay().remove(firstSquare);
         this.getOverlay().remove(forthSquare);
 
-        //startAnimation();
-        /*isLoading = false;
+        //startAnimation();*/
+        isLoading = false;
 
         if (viewsToHide != null && viewsToHide.size() > 0) {
 
@@ -361,7 +364,7 @@ public class FourFoldLoader extends RelativeLayout implements Animator.AnimatorL
             }
         } else {
             startAnimation();
-        }*/
+        }
 
 
     }

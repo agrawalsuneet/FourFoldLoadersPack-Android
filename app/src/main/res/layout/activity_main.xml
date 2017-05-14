@@ -22,18 +22,6 @@
         android:layout_marginBottom="24dp" />
 
     <com.agrawalsuneet.fourfoldloader.FourFoldLoader
-        android:id="@+id/fourfoldloader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:visibility="gone"/>
-
-    <com.agrawalsuneet.fourfoldloader.FourFoldLoader2
         android:id="@+id/loader2"
         app:loader_squareLength="20dp"
         android:padding="60dp"

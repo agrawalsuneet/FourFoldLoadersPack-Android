@@ -13,6 +13,6 @@
 
     <integer name="anim_duration">5000</integer>
     <item name="from_alpha" format="float" type="dimen">1.0</item>
-    <item name="to_alpha" format="float" type="dimen">0.3</item>
+    <item name="to_alpha" format="float" type="dimen">0.5</item>
 
 </resources>

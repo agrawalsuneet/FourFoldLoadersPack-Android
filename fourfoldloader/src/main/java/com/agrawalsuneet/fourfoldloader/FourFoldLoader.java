@@ -162,6 +162,13 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     }
 
     private void startAnimating() {
+        Log.d("Suneet isIntrpt", Boolean.toString(isIntrupted));
+
+        if (isIntrupted){
+            isLoading = false;
+            return;
+        }
+
         viewsToHide = new ArrayList<>();
 
         if (noOfSquareVisible == 4) {
@@ -368,8 +375,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     @Override
     public void onAnimationEnd(Animator animation) {
 
-        isLoading = false;
-
         if (!isIntrupted) {
             if (viewsToHide != null && viewsToHide.size() > 0) {
 
@@ -384,6 +389,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
                                 view.setRotationX(0);
                                 view.setRotationY(0);
                             }
+                            isLoading = false;
                             startAnimating();
                         }
                     }
@@ -401,6 +407,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
                     view.startAnimation(disappearAlphaAnim);
                 }
             } else {
+                isLoading = false;
                 startAnimating();
             }
         }

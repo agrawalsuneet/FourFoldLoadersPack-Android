@@ -37,13 +37,11 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
     private Interpolator interpolator = new AccelerateInterpolator();
 
-
+    //private variables
     private Context mContext;
     private int noOfSquareVisible = 4;
     private int mainSquare = 1;
     private boolean isClosing = true;
-
-    private boolean isIntrupted = true;
 
     private AnimatorSet mainAnimatorSet, anotherSet;
     private AlphaAnimation disappearAlphaAnim;
@@ -154,11 +152,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     }
 
     public void startLoading() {
-        isIntrupted = false;
-        startAnimating();
-    }
-
-    private void startAnimating() {
         viewsToHide = new ArrayList<>();
 
         if (noOfSquareVisible == 4) {
@@ -362,7 +355,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     @Override
     public void onAnimationEnd(Animator animation) {
 
-        if (!isIntrupted) {
+        if (isLoading) {
             if (viewsToHide != null && viewsToHide.size() > 0) {
 
                 disappearAlphaAnim = new AlphaAnimation(R.dimen.to_alpha, 0f);
@@ -370,14 +363,14 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
                 disappearAlphaAnim.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        if (!isIntrupted) {
+                        if (isLoading) {
                             for (View view : viewsToHide) {
                                 view.setVisibility(INVISIBLE);
                                 view.setRotationX(0);
                                 view.setRotationY(0);
                             }
                             isLoading = false;
-                            startAnimating();
+                            startLoading();
                         }
                     }
 
@@ -395,7 +388,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
                 }
             } else {
                 isLoading = false;
-                startAnimating();
+                startLoading();
             }
         }
     }
@@ -403,7 +396,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     public void stopLoading() {
 
         isLoading = false;
-        isIntrupted = true;
 
         if (mainAnimatorSet != null) {
             mainAnimatorSet.cancel();

@@ -6,8 +6,6 @@ import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -30,10 +28,13 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
     private int squareLenght;
 
-    private int firstSquareColor = getResources().getColor(R.color.red),
-            secondSquareColor = getResources().getColor(R.color.green),
-            thirdSquareColor = getResources().getColor(R.color.blue),
-            forthSquareColor = getResources().getColor(R.color.grey);
+    private int firstSquareColor = getResources().getColor(R.color.red);
+    private int secondSquareColor = getResources().getColor(R.color.green);
+    private int thirdSquareColor = getResources().getColor(R.color.blue);
+    private int forthSquareColor = getResources().getColor(R.color.grey);
+
+    private int animDur = 500,
+            disappearAnimDur = 100;
 
     private Interpolator interpolator = new AccelerateInterpolator();
 
@@ -48,9 +49,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
     private LinearLayout topLinearLayout, bottomLinearLayout;
     private LinearLayout.LayoutParams topParams, bottomParams;
-
-    private int animDur = 500,
-            disappearAnimDur = 100;
 
     private List<View> viewsToHide;
 
@@ -87,8 +85,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     private void initAttributes(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SquareLoader, 0, 0);
 
-        this.squareLenght = dpToPx(getContext(),
-                typedArray.getDimensionPixelSize(R.styleable.SquareLoader_loader_squareLength, 100));
+        this.squareLenght = typedArray.getDimensionPixelSize(R.styleable.SquareLoader_loader_squareLength, 100);
 
         this.firstSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_solidColor,
                 getResources().getColor(R.color.red));
@@ -107,6 +104,12 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
 
     private void initView() {
+        removeAllViews();
+        removeAllViewsInLayout();
+
+        noOfSquareVisible = 4;
+        mainSquare = 1;
+
         this.setOrientation(VERTICAL);
 
         firstSquare = new SquareLayout(mContext, firstSquareColor, squareLenght);
@@ -413,18 +416,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
             disappearAlphaAnim = null;
         }
 
-        List<View> viewsToReset = new ArrayList<>();
-        viewsToReset.add(firstSquare);
-        viewsToReset.add(secondSquare);
-        viewsToReset.add(thirdSquare);
-        viewsToReset.add(forthSquare);
-
-        for (View view : viewsToReset) {
-            view.setVisibility(INVISIBLE);
-            view.setRotationX(0);
-            view.setRotationY(0);
-        }
-
         this.removeView(firstSquare);
         this.removeView(secondSquare);
         this.removeView(thirdSquare);
@@ -433,16 +424,13 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
         secondSquare.setVisibility(GONE);
         thirdSquare.setVisibility(GONE);
         forthSquare.setVisibility(GONE);
+
         this.removeView(topLinearLayout);
         this.removeView(bottomLinearLayout);
         topLinearLayout.setVisibility(GONE);
         bottomLinearLayout.setVisibility(GONE);
-        removeAllViews();
-        removeAllViewsInLayout();
 
         initView();
-        noOfSquareVisible = 4;
-        mainSquare = 1;
     }
 
 
@@ -466,12 +454,68 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
         this.interpolator = interpolator;
     }
 
-    public boolean isLoading() {
-        return isLoading;
+    public int getSquareLenght() {
+        return squareLenght;
     }
 
-    private int dpToPx(Context context, int dp) {
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
+    public void setSquareLenght(int squareLenght) {
+        this.squareLenght = squareLenght;
+        initView();
+    }
+
+    public int getFirstSquareColor() {
+        return firstSquareColor;
+    }
+
+    public void setFirstSquareColor(int firstSquareColor) {
+        this.firstSquareColor = firstSquareColor;
+        initView();
+    }
+
+    public int getSecondSquareColor() {
+        return secondSquareColor;
+    }
+
+    public void setSecondSquareColor(int secondSquareColor) {
+        this.secondSquareColor = secondSquareColor;
+        initView();
+    }
+
+    public int getThirdSquareColor() {
+        return thirdSquareColor;
+    }
+
+    public void setThirdSquareColor(int thirdSquareColor) {
+        this.thirdSquareColor = thirdSquareColor;
+        initView();
+    }
+
+    public int getForthSquareColor() {
+        return forthSquareColor;
+    }
+
+    public void setForthSquareColor(int forthSquareColor) {
+        this.forthSquareColor = forthSquareColor;
+        initView();
+    }
+
+    public int getAnimationDuration() {
+        return animDur;
+    }
+
+    public void setAnimationDuration(int animDur) {
+        this.animDur = animDur;
+    }
+
+    public int getDisappearAnimationDuration() {
+        return disappearAnimDur;
+    }
+
+    public void setDisappearAnimationDurationr(int disappearAnimDur) {
+        this.disappearAnimDur = disappearAnimDur;
+    }
+
+    public boolean isLoading() {
+        return isLoading;
     }
 }

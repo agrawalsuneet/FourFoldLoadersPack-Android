@@ -10,8 +10,8 @@
 
     <com.agrawalsuneet.fourfoldloader.FourFoldLoader
         android:id="@+id/loader2"
-        app:loader_squareLength="20dp"
-        android:padding="60dp"
+        app:loader_squareLength="60dp"
+        android:padding="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"/>

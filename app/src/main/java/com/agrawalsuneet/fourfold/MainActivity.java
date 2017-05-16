@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initControls() {
-        loader = (FourFoldLoader)findViewById(R.id.loader2);
+        loader = (FourFoldLoader)findViewById(R.id.forufoldloader);
         button = (Button) findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {

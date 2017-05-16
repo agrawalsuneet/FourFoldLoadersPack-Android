@@ -2,13 +2,14 @@
 <resources>
 
     <declare-styleable name="SquareLoader">
-        <attr name="loader_squareLength" format="dimension" />
         <attr name="loader_solidColor" format="color" />
+        <attr name="loader_squareLength" format="dimension" />
         <attr name="loader_firstSquareColor" format="color" />
         <attr name="loader_secondSquareColor" format="color" />
         <attr name="loader_thirdSquareColor" format="color" />
         <attr name="loader_forthSquareColor" format="color" />
         <attr name="loader_animDuration" format="integer" />
+        <attr name="loader_disappear_animDuration" format="integer" />
     </declare-styleable>
 
     <item name="from_alpha" format="float" type="dimen">1.0</item>

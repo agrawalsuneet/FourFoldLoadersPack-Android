@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -110,8 +109,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
 
     private void initView() {
-        removeAllViews();
-
         this.setOrientation(VERTICAL);
 
         firstSquare = new SquareLayout(mContext, firstSquareColor, squareLenght);
@@ -162,13 +159,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     }
 
     private void startAnimating() {
-        Log.d("Suneet isIntrpt", Boolean.toString(isIntrupted));
-
-        if (isIntrupted){
-            isLoading = false;
-            return;
-        }
-
         viewsToHide = new ArrayList<>();
 
         if (noOfSquareVisible == 4) {
@@ -363,13 +353,10 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
             isClosing = false;
         }
 
-        if (!isIntrupted) {
-            mainAnimatorSet.addListener(this);
-            isLoading = true;
-        } else {
-            mainAnimatorSet.removeListener(this);
-            isLoading = false;
-        }
+
+        mainAnimatorSet.addListener(this);
+        isLoading = true;
+
     }
 
     @Override
@@ -446,14 +433,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
             view.setRotationY(0);
         }
 
-        if (mainAnimatorSet != null || anotherSet != null || disappearAlphaAnim != null
-                || firstSquare.getVisibility() != INVISIBLE || secondSquare.getVisibility() != INVISIBLE
-                || thirdSquare.getVisibility() != INVISIBLE || forthSquare.getVisibility() != INVISIBLE ||
-                isLoading || !isIntrupted) {
-            Log.d("Suneet", "Animation not stopped yet");
-            stopLoading();
-        }
-
         this.removeView(firstSquare);
         this.removeView(secondSquare);
         this.removeView(thirdSquare);
@@ -472,10 +451,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
         initView();
         noOfSquareVisible = 4;
         mainSquare = 1;
-
-        if (isLoading || !isIntrupted){
-            stopLoading();
-        }
     }
 
 

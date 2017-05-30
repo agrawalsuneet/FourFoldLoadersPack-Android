@@ -14,7 +14,11 @@
         android:padding="30dp"
         app:loader_animDuration="500"
         app:loader_disappear_animDuration="100"
-        app:loader_squareLength="60dp" />
+        app:loader_squareLength="60dp"
+        app:loader_firstSquareColor="@color/pink"
+        app:loader_secondSquareColor="@color/blue"
+        app:loader_thirdSquareColor="@color/purple"
+        app:loader_forthSquareColor="@color/indigo"/>
 
     <Button
         android:id="@+id/button"

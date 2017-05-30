@@ -87,16 +87,16 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
         this.squareLenght = typedArray.getDimensionPixelSize(R.styleable.SquareLoader_loader_squareLength, 100);
 
-        this.firstSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_solidColor,
+        this.firstSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_firstSquareColor,
                 getResources().getColor(R.color.red));
 
-        this.secondSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_solidColor,
+        this.secondSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_secondSquareColor,
                 getResources().getColor(R.color.green));
 
-        this.thirdSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_solidColor,
+        this.thirdSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_thirdSquareColor,
                 getResources().getColor(R.color.blue));
 
-        this.forthSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_solidColor,
+        this.forthSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_forthSquareColor,
                 getResources().getColor(R.color.grey));
 
         this.animDur = typedArray.getInteger(R.styleable.SquareLoader_loader_animDuration, 500);

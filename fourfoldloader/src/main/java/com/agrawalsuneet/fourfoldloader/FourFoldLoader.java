@@ -36,6 +36,8 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     private int animDur = 500,
             disappearAnimDur = 100;
 
+    private boolean overridePadding = false;
+
     private Interpolator interpolator = new AccelerateInterpolator();
 
     //private variables
@@ -78,6 +80,11 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
+        if (!overridePadding) {
+            setPadding(squareLenght / 2, squareLenght / 2,
+                    squareLenght / 2, squareLenght / 2);
+        }
+
         setMeasuredDimension((2 * squareLenght) + getPaddingLeft() + getPaddingRight(),
                 (2 * squareLenght) + getPaddingTop() + getPaddingBottom());
     }
@@ -101,6 +108,8 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
         this.animDur = typedArray.getInteger(R.styleable.SquareLoader_loader_animDuration, 500);
         this.disappearAnimDur = typedArray.getInteger(R.styleable.SquareLoader_loader_disappear_animDuration, 100);
+
+        this.overridePadding = typedArray.getBoolean(R.styleable.SquareLoader_loader_overridePadding, false);
 
         typedArray.recycle();
     }

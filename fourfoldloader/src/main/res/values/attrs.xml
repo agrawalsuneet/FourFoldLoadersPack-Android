@@ -10,6 +10,7 @@
         <attr name="loader_forthSquareColor" format="color" />
         <attr name="loader_animDuration" format="integer" />
         <attr name="loader_disappear_animDuration" format="integer" />
+        <attr name="loader_overridePadding" format="boolean" />
     </declare-styleable>
 
     <item name="from_alpha" format="float" type="dimen">1.0</item>

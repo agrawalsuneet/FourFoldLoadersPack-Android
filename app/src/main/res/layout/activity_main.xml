@@ -18,7 +18,8 @@
         app:loader_firstSquareColor="@color/pink"
         app:loader_secondSquareColor="@color/blue"
         app:loader_thirdSquareColor="@color/purple"
-        app:loader_forthSquareColor="@color/indigo"/>
+        app:loader_forthSquareColor="@color/indigo"
+        app:loader_overridePadding= "false"/>
 
     <Button
         android:id="@+id/button"

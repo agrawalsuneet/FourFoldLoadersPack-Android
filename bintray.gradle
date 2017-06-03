@@ -47,7 +47,7 @@ bintray {
 
     configurations = ['archives']
     pkg {
-        repo = 'fourfoldloader'
+        repo = 'androidlibs'
         name = 'fourfoldloader'
         desc = 'a replacement of default android material progressbar with fourfold loader'
         websiteUrl = 'https://bintray.com/agrawalsuneet/androidlibs/fourfoldloader'

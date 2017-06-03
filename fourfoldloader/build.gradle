@@ -1,5 +1,26 @@
 apply plugin: 'com.android.library'
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+    }
+}
+
+ext {
+    artifact = 'fourfoldloader'
+    bintrayName = 'fourfoldloader'
+}
+
+configurations {
+    javadocDeps
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -20,4 +41,9 @@ android {
 
 dependencies {
     compile 'org.jetbrains:annotations-java5:15.0'
+}
+
+task bintray {
+    apply from: '../install.gradle'
+    apply from: '../bintray.gradle'
 }

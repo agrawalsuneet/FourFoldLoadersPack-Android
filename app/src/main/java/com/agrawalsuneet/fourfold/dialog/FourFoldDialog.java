@@ -21,7 +21,7 @@ import com.agrawalsuneet.fourfoldloader.FourFoldLoader;
  * Created by Suneet on 13/01/17.
  */
 
-public class DotsLoaderDialog extends DialogFragment {
+public class FourFoldDialog extends DialogFragment {
 
     private View mView;
     private TextView mMessageTextView;
@@ -82,37 +82,33 @@ public class DotsLoaderDialog extends DialogFragment {
             mMessageTextView.setTextColor(ContextCompat.getColor(getContext(), mController.textColor));
         }
 
-        /*if (mController.animDur != 0) {
-            mLoader.setAnimDur(mController.animDur);
+        if (mController.squareLength != 0){
+            mLoader.setSquareLenght(mController.squareLength);
         }
 
-        if (mController.noOfDots != 0){
-            mLoader.setNoOfDots(mController.noOfDots);
+        if (mController.animDur != 0) {
+            mLoader.setAnimationDuration(mController.animDur);
         }
 
-        if (mController.dotsDefaultColor != 0) {
-            mLoader.setDefaultColor(mController.dotsDefaultColor);
+        if (mController.fadeAnimDuration != 0){
+            mLoader.setDisappearAnimationDurationr(mController.fadeAnimDuration);
         }
 
-        if (mController.dotsSelectedColor != 0) {
-            mLoader.setSelectedColor(mController.dotsSelectedColor);
+        if (mController.firstSquareColor != 0) {
+            mLoader.setFirstSquareColor(mController.firstSquareColor);
         }
 
-        if (mController.dotsDist != 0) {
-            mLoader.setDotsDist(mController.dotsDist);
+        if (mController.secondSquareColor != 0) {
+            mLoader.setSecondSquareColor(mController.secondSquareColor);
         }
 
-        if (mController.dotsRadius != 0) {
-            mLoader.setRadius(mController.dotsRadius);
+        if (mController.thirdSquareColor != 0) {
+            mLoader.setThirdSquareColor(mController.thirdSquareColor);
         }
 
-        if (mController.dotsSelectedRadius != 0) {
-            mLoader.setSelRadius(mController.dotsSelectedRadius);
+        if (mController.forthSquareColor != 0) {
+            mLoader.setForthSquareColor(mController.forthSquareColor);
         }
-
-        mLoader.setIsSingleDir(mController.isLoadingSingleDir);
-
-        mLoader.setExpandOnSelect(mController.isExpandOnSelect);*/
     }
 
     public static class Builder {
@@ -141,13 +137,13 @@ public class DotsLoaderDialog extends DialogFragment {
             return this;
         }
 
-        public Builder setSquareLength(int squareLength){
-            this.mController.setSquareLength(squareLength);
+        public Builder startLoadingDefault(boolean startLoadingDefault){
+            this.mController.setStartLoadingDefault(startLoadingDefault);
             return this;
         }
 
-        public Builder shouldOverridePadding(boolean overridePadding) {
-            this.mController.setOverridePadding(overridePadding);
+        public Builder setSquareLength(int squareLength){
+            this.mController.setSquareLength(squareLength);
             return this;
         }
 
@@ -187,14 +183,14 @@ public class DotsLoaderDialog extends DialogFragment {
         }
 
 
-        public DotsLoaderDialog create() {
-            DotsLoaderDialog dialog = new DotsLoaderDialog();
+        public FourFoldDialog create() {
+            FourFoldDialog dialog = new FourFoldDialog();
             dialog.setValues(this.mController);
             return dialog;
         }
 
-        public DotsLoaderDialog show() {
-            DotsLoaderDialog dialog = create();
+        public FourFoldDialog show() {
+            FourFoldDialog dialog = create();
             dialog.show(mActivity.getSupportFragmentManager(), "");
             return dialog;
         }

@@ -567,6 +567,4 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     public boolean isLoading() {
         return isLoading;
     }
-
-
 }

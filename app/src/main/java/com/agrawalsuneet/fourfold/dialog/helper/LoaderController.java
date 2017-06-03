@@ -13,7 +13,7 @@ public class LoaderController implements Parcelable {
     public int textColor;
     public String message;
     public int squareLength;
-    private boolean overridePadding;
+    private boolean startLoadingDefault;
     public int firstSquareColor, secondSquareColor,
             thirdSquareColor, forthSquareColor;
     public int animDur, fadeAnimDuration;
@@ -54,12 +54,12 @@ public class LoaderController implements Parcelable {
         this.squareLength = squareLength;
     }
 
-    public boolean isOverridePadding() {
-        return overridePadding;
+    public boolean isStartLoadingDefault() {
+        return startLoadingDefault;
     }
 
-    public void setOverridePadding(boolean overridePadding) {
-        this.overridePadding = overridePadding;
+    public void setStartLoadingDefault(boolean startLoadingDefault) {
+        this.startLoadingDefault = startLoadingDefault;
     }
 
     public int getFirstSquareColor() {
@@ -123,7 +123,7 @@ public class LoaderController implements Parcelable {
         textColor = in.readInt();
         message = in.readString();
         squareLength = in.readInt();
-        overridePadding = in.readByte() != 0;
+        startLoadingDefault = in.readByte() != 0;
         firstSquareColor = in.readInt();
         secondSquareColor = in.readInt();
         thirdSquareColor = in.readInt();
@@ -139,7 +139,7 @@ public class LoaderController implements Parcelable {
         dest.writeInt(textColor);
         dest.writeString(message);
         dest.writeInt(squareLength);
-        dest.writeByte((byte) (overridePadding ? 1 : 0));
+        dest.writeByte((byte) (startLoadingDefault ? 1 : 0));
         dest.writeInt(firstSquareColor);
         dest.writeInt(secondSquareColor);
         dest.writeInt(thirdSquareColor);
@@ -165,5 +165,8 @@ public class LoaderController implements Parcelable {
             return new LoaderController[size];
         }
     };
+
 }
+
+
 

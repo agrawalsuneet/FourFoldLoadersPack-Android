@@ -1,11 +1,15 @@
 package com.agrawalsuneet.fourfold;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.agrawalsuneet.fourfold.dialog.FourFoldDialog;
 import com.agrawalsuneet.fourfoldloader.FourFoldLoader;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        initControls();
-        addViewProgrammatically();
+        //initControls();
+        //addViewProgrammatically();
     }
 
     private void initControls() {
-        mainLoader = (FourFoldLoader)findViewById(R.id.main_fourfoldloader);
+        /*mainLoader = (FourFoldLoader)findViewById(R.id.main_fourfoldloader);
         button = (Button) findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     loader.startLoading();
                 }
             }
-        });
+        });*/
 
 
     }
@@ -68,5 +72,41 @@ public class MainActivity extends AppCompatActivity {
         loader.setDisappearAnimationDurationr(200);
 
         container.addView(loader);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.show_dialog:
+                showAlertDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void showAlertDialog() {
+        FourFoldDialog dotsDialog = new FourFoldDialog.Builder(this)
+                .setTextColor(R.color.white)
+                .setMessage("Loading...")
+                .setTextSize(24)
+                .setFirstSquareColor(ContextCompat.getColor(this, R.color.white))
+                .setSecondSquareColor(ContextCompat.getColor(this, R.color.white))
+                .setThirdSquareColor(ContextCompat.getColor(this, R.color.white))
+                .setForthSquareColor(ContextCompat.getColor(this, R.color.white))
+                .setAnimDuration(800)
+                .setFadeAnimDuration(200)
+                .create();
+
+        //dotsDialog.setCancelable(false);
+        dotsDialog.show(getSupportFragmentManager(), "dotsDialog");
     }
 }

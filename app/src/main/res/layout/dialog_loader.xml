@@ -20,7 +20,8 @@
         app:loader_firstSquareColor="@color/indigo"
         app:loader_secondSquareColor="@color/purple"
         app:loader_thirdSquareColor="@color/blue"
-        app:loader_forthSquareColor="@color/pink"/>
+        app:loader_forthSquareColor="@color/pink"
+        app:loader_startLoadingDefault="true"/>
 
     <TextView
         android:id="@+id/dialog_message_tv"

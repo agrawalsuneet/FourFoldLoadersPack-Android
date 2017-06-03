@@ -26,7 +26,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     //public variables
     private boolean isLoading;
 
-    private int squareLenght;
+    private int squareLenght = 100;
 
     private int firstSquareColor = getResources().getColor(R.color.red);
     private int secondSquareColor = getResources().getColor(R.color.green);
@@ -50,7 +50,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     private AlphaAnimation disappearAlphaAnim;
 
     private LinearLayout topLinearLayout, bottomLinearLayout;
-    private LinearLayout.LayoutParams topParams, bottomParams;
 
     private List<View> viewsToHide;
 
@@ -90,26 +89,26 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     }
 
     private void initAttributes(AttributeSet attrs) {
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SquareLoader, 0, 0);
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.FourFoldLoader, 0, 0);
 
-        this.squareLenght = typedArray.getDimensionPixelSize(R.styleable.SquareLoader_loader_squareLength, 100);
+        this.squareLenght = typedArray.getDimensionPixelSize(R.styleable.FourFoldLoader_loader_squareLength, 100);
 
-        this.firstSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_firstSquareColor,
+        this.firstSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_loader_firstSquareColor,
                 getResources().getColor(R.color.red));
 
-        this.secondSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_secondSquareColor,
+        this.secondSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_loader_secondSquareColor,
                 getResources().getColor(R.color.green));
 
-        this.thirdSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_thirdSquareColor,
+        this.thirdSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_loader_thirdSquareColor,
                 getResources().getColor(R.color.blue));
 
-        this.forthSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_forthSquareColor,
+        this.forthSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_loader_forthSquareColor,
                 getResources().getColor(R.color.grey));
 
-        this.animDur = typedArray.getInteger(R.styleable.SquareLoader_loader_animDuration, 500);
-        this.disappearAnimDur = typedArray.getInteger(R.styleable.SquareLoader_loader_disappear_animDuration, 100);
+        this.animDur = typedArray.getInteger(R.styleable.FourFoldLoader_loader_animDuration, 500);
+        this.disappearAnimDur = typedArray.getInteger(R.styleable.FourFoldLoader_loader_disappear_animDuration, 100);
 
-        this.overridePadding = typedArray.getBoolean(R.styleable.SquareLoader_loader_overridePadding, false);
+        this.overridePadding = typedArray.getBoolean(R.styleable.FourFoldLoader_loader_overridePadding, false);
 
         typedArray.recycle();
     }
@@ -130,26 +129,22 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
         forthSquare = new SquareLayout(mContext, forthSquareColor, squareLenght);
 
         topLinearLayout = new LinearLayout(mContext);
-        topLinearLayout.setGravity(Gravity.RIGHT);
+        topLinearLayout.setGravity(Gravity.END);
         topLinearLayout.setOrientation(HORIZONTAL);
         topLinearLayout.addView(firstSquare);
         topLinearLayout.addView(secondSquare);
 
         bottomLinearLayout = new LinearLayout(mContext);
-        bottomLinearLayout.setGravity(Gravity.RIGHT);
+        bottomLinearLayout.setGravity(Gravity.END);
         bottomLinearLayout.setOrientation(HORIZONTAL);
         bottomLinearLayout.addView(forthSquare);
         bottomLinearLayout.addView(thirdSquare);
 
-        topParams = new LayoutParams(2 * squareLenght, squareLenght);
-        topParams.gravity = Gravity.RIGHT;
+        LinearLayout.LayoutParams llParams = new LayoutParams(2 * squareLenght, squareLenght);
+        llParams.gravity = Gravity.END;
 
-        bottomParams = new LayoutParams(2 * squareLenght, squareLenght);
-        bottomParams.gravity = Gravity.RIGHT;
-
-
-        addView(topLinearLayout, topParams);
-        addView(bottomLinearLayout, bottomParams);
+        addView(topLinearLayout, llParams);
+        addView(bottomLinearLayout, llParams);
 
         requestLayout();
 
@@ -230,8 +225,8 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
                         //if mainSquare is 1 than 2 should close
                         //or if main square is 4 than 3 should close
                         View targetView = (mainSquare == 1 ? secondSquare : thirdSquare);
-                        topLinearLayout.setGravity(Gravity.LEFT);
-                        bottomLinearLayout.setGravity(Gravity.LEFT);
+                        topLinearLayout.setGravity(Gravity.START);
+                        bottomLinearLayout.setGravity(Gravity.START);
 
                         this.getOverlay().add(targetView);
 
@@ -251,8 +246,8 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
                         //or if main square is 3 than 4 should close
                         targetView = (mainSquare == 2 ? firstSquare : forthSquare);
 
-                        topLinearLayout.setGravity(Gravity.RIGHT);
-                        bottomLinearLayout.setGravity(Gravity.RIGHT);
+                        topLinearLayout.setGravity(Gravity.END);
+                        bottomLinearLayout.setGravity(Gravity.END);
 
                         this.getOverlay().add(targetView);
 
@@ -530,4 +525,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     public boolean isLoading() {
         return isLoading;
     }
+
+
 }

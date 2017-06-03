@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <com.agrawalsuneet.fourfoldloader.FourFoldLoader
-        android:id="@+id/forufoldloader"
+        android:id="@+id/fourfoldloader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_margin="16dp"
-        android:padding="30dp"
         app:loader_animDuration="500"
         app:loader_disappear_animDuration="100"
-        app:loader_squareLength="60dp"
         app:loader_firstSquareColor="@color/pink"
-        app:loader_secondSquareColor="@color/blue"
-        app:loader_thirdSquareColor="@color/purple"
         app:loader_forthSquareColor="@color/indigo"
-        app:loader_overridePadding= "false"/>
+        app:loader_secondSquareColor="@color/blue"
+        app:loader_squareLength="60dp"
+        app:loader_thirdSquareColor="@color/purple" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/forufoldloader"
+        android:layout_alignEnd="@+id/fourfoldloader"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/forufoldloader"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_alignStart="@+id/fourfoldloader"
+        android:layout_margin="16dp"
         android:text="Animate" />
 
-</RelativeLayout>
+</LinearLayout>

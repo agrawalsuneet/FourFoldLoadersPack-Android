@@ -41,11 +41,11 @@ public class SquareLayout extends View {
     }
 
     private void initAttributes(AttributeSet attrs) {
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SquareLoader, 0, 0);
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.FourFoldLoader, 0, 0);
 
-        this.mSquareLength = (int) typedArray.getDimension(R.styleable.SquareLoader_loader_squareLength,
+        this.mSquareLength = (int) typedArray.getDimension(R.styleable.FourFoldLoader_loader_squareLength,
                 100);
-        this.mSquareColor = typedArray.getColor(R.styleable.SquareLoader_loader_solidColor,
+        this.mSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_loader_solidColor,
                 getResources().getColor(R.color.grey));
         typedArray.recycle();
         initValues();

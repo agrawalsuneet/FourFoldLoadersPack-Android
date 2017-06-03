@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <com.agrawalsuneet.fourfoldloader.FourFoldLoader
-        android:id="@+id/fourfoldloader"
+        android:id="@+id/main_fourfoldloader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -18,7 +18,8 @@
         app:loader_forthSquareColor="@color/indigo"
         app:loader_secondSquareColor="@color/blue"
         app:loader_squareLength="60dp"
-        app:loader_thirdSquareColor="@color/purple" />
+        app:loader_thirdSquareColor="@color/purple"
+        app:loader_startLoadingDefault="false"/>
 
     <Button
         android:id="@+id/button"

@@ -8,6 +8,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -36,7 +37,8 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     private int animDur = 500,
             disappearAnimDur = 100;
 
-    private boolean overridePadding = false;
+    private boolean overridePadding = false,
+            startLoadingDefault = false;
 
     private Interpolator interpolator = new AccelerateInterpolator();
 
@@ -58,6 +60,27 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
     public FourFoldLoader(Context context) {
         super(context);
         mContext = context;
+        initView();
+    }
+
+    public FourFoldLoader(Context context, boolean startLoadingDefault) {
+        super(context);
+        mContext = context;
+        this.startLoadingDefault = startLoadingDefault;
+        initView();
+    }
+
+    public FourFoldLoader(Context context, int squareLenght, int firstSquareColor,
+                          int secondSquareColor, int thirdSquareColor,
+                          int forthSquareColor, boolean startLoadingDefault) {
+        super(context);
+        mContext = context;
+        this.squareLenght = squareLenght;
+        this.firstSquareColor = firstSquareColor;
+        this.secondSquareColor = secondSquareColor;
+        this.thirdSquareColor = thirdSquareColor;
+        this.forthSquareColor = forthSquareColor;
+        this.startLoadingDefault = startLoadingDefault;
         initView();
     }
 
@@ -109,6 +132,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
         this.disappearAnimDur = typedArray.getInteger(R.styleable.FourFoldLoader_loader_disappear_animDuration, 100);
 
         this.overridePadding = typedArray.getBoolean(R.styleable.FourFoldLoader_loader_overridePadding, false);
+        this.startLoadingDefault = typedArray.getBoolean(R.styleable.FourFoldLoader_loader_startLoadingDefault, false);
 
         typedArray.recycle();
     }
@@ -120,6 +144,8 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
         noOfSquareVisible = 4;
         mainSquare = 1;
+
+        isLoading = false;
 
         this.setOrientation(VERTICAL);
 
@@ -159,6 +185,22 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
         forthSquare.setPivotX(squareLenght);
         forthSquare.setPivotY(0);
+
+        if (startLoadingDefault) {
+            ViewTreeObserver viewTreeObserver = this.getViewTreeObserver();
+            final View loaderView = this;
+
+            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    startLoading();
+
+                    ViewTreeObserver vto = loaderView.getViewTreeObserver();
+                    vto.removeOnGlobalLayoutListener(this);
+                }
+            });
+            startLoadingDefault = false;
+        }
     }
 
     public void startLoading() {
@@ -359,7 +401,6 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
         mainAnimatorSet.addListener(this);
         isLoading = true;
-
     }
 
     @Override
@@ -370,6 +411,7 @@ public class FourFoldLoader extends LinearLayout implements Animator.AnimatorLis
 
                 disappearAlphaAnim = new AlphaAnimation(R.dimen.to_alpha, 0f);
                 disappearAlphaAnim.setDuration(disappearAnimDur);
+
                 disappearAlphaAnim.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationEnd(Animation animation) {

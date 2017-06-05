@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="SquareLoader">
-        <attr name="loader_squareLength" format="integer" />
+    <declare-styleable name="FourFoldLoader">
         <attr name="loader_solidColor" format="color" />
+        <attr name="loader_squareLength" format="dimension" />
         <attr name="loader_firstSquareColor" format="color" />
         <attr name="loader_secondSquareColor" format="color" />
         <attr name="loader_thirdSquareColor" format="color" />
         <attr name="loader_forthSquareColor" format="color" />
         <attr name="loader_animDuration" format="integer" />
+        <attr name="loader_disappear_animDuration" format="integer" />
+        <attr name="loader_overridePadding" format="boolean" />
+        <attr name="loader_startLoadingDefault" format="boolean" />
     </declare-styleable>
+
+    <item name="from_alpha" format="float" type="dimen">1.0</item>
+    <item name="to_alpha" format="float" type="dimen">0.5</item>
 
 </resources>

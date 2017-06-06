@@ -107,7 +107,7 @@ view.setOnClickListener(new View.OnClickListener() {
   loader will take care by itself
 
 
-
+### Please note that minimum API level required to import this library is API 18 because of Android class ViewOverlay.
 
 Feel free to drop a mail at agrawalsuneet@gmail.com if face any issue or require any additional functionality in it.
 

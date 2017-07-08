@@ -1,5 +1,5 @@
 # FourFold Loader
-> Android FourFoldLoader
+> Android FourFoldLoader            [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=5960945bda5cfa00016422c6&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/5960945bda5cfa00016422c6/build/latest?branch=master)
 
 > A replacement of default android material progressbar with fourfold loader
 

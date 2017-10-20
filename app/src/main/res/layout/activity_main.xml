@@ -21,7 +21,7 @@
         app:loader_thirdSquareColor="@color/purple"
         app:loader_startLoadingDefault="true"/>
 
-    <!--<Button
+    <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,6 +29,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/fourfoldloader"
         android:layout_margin="16dp"
-        android:text="Animate" />-->
+        android:text="Animate" />
 
 </LinearLayout>

@@ -23,6 +23,10 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
 
     var disappearAnimationDuration = 100
 
+    private var noOfSquareVisible = 4
+    private var mainSquare = 1
+    private var isClosing = true
+
 
     private var mainAnimatorSet: AnimatorSet? = null
     private var anotherSet: AnimatorSet? = null
@@ -63,18 +67,6 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
         initView()
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
-        if (!overridePadding) {
-            setPadding(squareLenght / 2, squareLenght / 2,
-                    squareLenght / 2, squareLenght / 2)
-        }
-
-        setMeasuredDimension(2 * squareLenght + paddingLeft + paddingRight,
-                2 * squareLenght + paddingTop + paddingBottom)
-    }
-
     override fun initAttributes(attrs: AttributeSet) {
         super.initAttributes(attrs)
 
@@ -87,6 +79,39 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
         typedArray.recycle()
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        if (!overridePadding) {
+            setPadding(squareLenght / 2, squareLenght / 2,
+                    squareLenght / 2, squareLenght / 2)
+        }
+
+        setMeasuredDimension(2 * squareLenght + paddingLeft + paddingRight,
+                2 * squareLenght + paddingTop + paddingBottom)
+    }
+
+    override fun initView() {
+
+        //set initial values
+        noOfSquareVisible = 4
+        mainSquare = 1
+
+        super.initView()
+
+        //set pivot of squares
+        firstSquare.pivotX = squareLenght.toFloat()
+        firstSquare.pivotY = squareLenght.toFloat()
+
+        secondSquare.pivotX = 0f
+        secondSquare.pivotY = squareLenght.toFloat()
+
+        thirdSquare.pivotX = 0f
+        thirdSquare.pivotY = 0f
+
+        forthSquare.pivotX = squareLenght.toFloat()
+        forthSquare.pivotY = 0f
+    }
 
     override fun startLoading() {
         viewsToHide = ArrayList()
@@ -166,10 +191,10 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
                         //or if main square is 3 than 4 should close
                         val targetView = if (mainSquare == 2) firstSquare else forthSquare
 
-                        topLinearLayout!!.gravity = Gravity.END
-                        bottomLinearLayout!!.gravity = Gravity.END
+                        topLinearLayout.gravity = Gravity.END
+                        bottomLinearLayout.gravity = Gravity.END
 
-                        this.overlay.add(targetView!!)
+                        this.overlay.add(targetView)
 
                         mainAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.left_close_right) as AnimatorSet
                         mainAnimatorSet!!.setTarget(targetView)
@@ -187,11 +212,11 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
 
                 when (mainSquare) {
                     1, 3 -> {
-                        this.overlay.add(secondSquare!!)
-                        this.overlay.add(thirdSquare!!)
+                        this.overlay.add(secondSquare)
+                        this.overlay.add(thirdSquare)
 
-                        secondSquare!!.visibility = View.VISIBLE
-                        thirdSquare!!.visibility = View.VISIBLE
+                        secondSquare.visibility = View.VISIBLE
+                        thirdSquare.visibility = View.VISIBLE
 
                         mainAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.right_open_right) as AnimatorSet
                         mainAnimatorSet!!.setTarget(secondSquare)
@@ -205,12 +230,13 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
                         anotherSet!!.interpolator = interpolator
                         anotherSet!!.start()
                     }
-                    2, 4 -> {
-                        this.overlay.add(firstSquare!!)
-                        this.overlay.add(forthSquare!!)
 
-                        firstSquare!!.visibility = View.VISIBLE
-                        forthSquare!!.visibility = View.VISIBLE
+                    2, 4 -> {
+                        this.overlay.add(firstSquare)
+                        this.overlay.add(forthSquare)
+
+                        firstSquare.visibility = View.VISIBLE
+                        forthSquare.visibility = View.VISIBLE
 
                         mainAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.left_open_left) as AnimatorSet
                         mainAnimatorSet!!.setTarget(firstSquare)
@@ -250,9 +276,9 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
                 3, 4 -> {
                     val targetView = if (mainSquare == 3) secondSquare else firstSquare
 
-                    this.overlay.add(targetView!!)
+                    this.overlay.add(targetView)
 
-                    targetView!!.setVisibility(View.VISIBLE)
+                    targetView.setVisibility(View.VISIBLE)
 
                     mainAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.top_open_up) as AnimatorSet
                     mainAnimatorSet!!.setTarget(targetView)

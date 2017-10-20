@@ -14,6 +14,13 @@ import com.agrawalsuneet.fourfoldloader.R
  */
 abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
 
+    var squareLenght = 100
+
+    var firstSquareColor = resources.getColor(R.color.red)
+    var secondSquareColor = resources.getColor(R.color.green)
+    var thirdSquareColor = resources.getColor(R.color.blue)
+    var forthSquareColor = resources.getColor(R.color.grey)
+
     var startLoadingDefault = false
 
     var animationDuration = 500
@@ -21,11 +28,9 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
     var interpolator: Interpolator = AccelerateInterpolator()
 
     //private variables
-    protected var noOfSquareVisible = 4
-    protected var mainSquare = 1
-    protected var isClosing = true
 
-    protected var isLoading: Boolean = false
+    var isLoading: Boolean = false
+        protected set
 
     protected lateinit var firstSquare: SquareView
     protected lateinit var secondSquare: SquareView
@@ -81,12 +86,13 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
     }
 
 
-    protected fun initView() {
+    open protected fun initView() {
+        if (isLoading) {
+            return
+        }
+
         removeAllViews()
         removeAllViewsInLayout()
-
-        noOfSquareVisible = 4
-        mainSquare = 1
 
         isLoading = false
 
@@ -117,18 +123,6 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
 
         requestLayout()
 
-        firstSquare.pivotX = squareLenght.toFloat()
-        firstSquare.pivotY = squareLenght.toFloat()
-
-        secondSquare.pivotX = 0f
-        secondSquare.pivotY = squareLenght.toFloat()
-
-        thirdSquare.pivotX = 0f
-        thirdSquare.pivotY = 0f
-
-        forthSquare.pivotX = squareLenght.toFloat()
-        forthSquare.pivotY = 0f
-
         if (startLoadingDefault) {
             val viewTreeObserver = this.viewTreeObserver
             val loaderView = this
@@ -146,39 +140,4 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
     }
 
     abstract fun startLoading()
-
-    var squareLenght = 100
-        get() = field
-        set(value) {
-            field = value
-            initView()
-        }
-
-    var firstSquareColor = resources.getColor(R.color.red)
-        get() = field
-        set(value) {
-            field = value
-            initView()
-        }
-
-    var secondSquareColor = resources.getColor(R.color.green)
-        get() = field
-        set(value) {
-            field = value
-            initView()
-        }
-
-    var thirdSquareColor = resources.getColor(R.color.blue)
-        get() = field
-        set(value) {
-            field = value
-            initView()
-        }
-
-    var forthSquareColor = resources.getColor(R.color.grey)
-        get() = field
-        set(value) {
-            field = value
-            initView()
-        }
 }

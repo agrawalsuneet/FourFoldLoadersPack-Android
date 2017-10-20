@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -25,18 +26,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        //initControls();
-        //addViewProgrammatically();
+        initControls();
+        addViewProgrammatically();
     }
 
     private void initControls() {
-        /*mainLoader = (FourFoldLoader)findViewById(R.id.main_fourfoldloader);
+        mainLoader = (FourFoldLoader) findViewById(R.id.main_fourfoldloader);
         button = (Button) findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainLoader.isLoading()){
+                if (mainLoader.isLoading()) {
                     mainLoader.stopLoading();
                 } else {
                     mainLoader.startLoading();
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     loader.startLoading();
                 }
             }
-        });*/
+        });
 
 
     }
@@ -56,20 +57,20 @@ public class MainActivity extends AppCompatActivity {
     private void addViewProgrammatically() {
         container = (LinearLayout) findViewById(R.id.container);
 
-        /*loader = new FourFoldLoader(this, 200,
+        loader = new FourFoldLoader(this, 200,
                 getResources().getColor(R.color.green),
                 getResources().getColor(R.color.red),
                 getResources().getColor(R.color.blue),
-                getResources().getColor(R.color.colorAccent), true);*/
+                getResources().getColor(R.color.colorAccent), true);
 
-        loader = new FourFoldLoader(this, true);
+        /*loader = new FourFoldLoader(this, true);
         loader.setSquareLenght(200);
         loader.setFirstSquareColor(getResources().getColor(R.color.green));
         loader.setSecondSquareColor(getResources().getColor(R.color.green));
         loader.setThirdSquareColor(getResources().getColor(R.color.green));
-        loader.setForthSquareColor(getResources().getColor(R.color.green));
-        loader.setAnimationDuration(800);
-        loader.setDisappearAnimationDuration(200);
+        loader.setForthSquareColor(getResources().getColor(R.color.green));*/
+        loader.setAnimationDuration(500);
+        loader.setDisappearAnimationDuration(100);
 
         container.addView(loader);
     }

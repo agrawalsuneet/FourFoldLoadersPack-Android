@@ -15,6 +15,8 @@ import android.view.animation.Animation;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
+import com.agrawalsuneet.fourfoldloader.basicviews.SquareLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 

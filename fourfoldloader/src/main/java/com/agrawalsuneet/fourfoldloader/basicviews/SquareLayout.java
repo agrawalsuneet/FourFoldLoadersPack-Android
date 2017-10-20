@@ -1,4 +1,4 @@
-package com.agrawalsuneet.fourfoldloader;
+package com.agrawalsuneet.fourfoldloader.basicviews;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.agrawalsuneet.fourfoldloader.R;
 
 import org.jetbrains.annotations.Nullable;
 

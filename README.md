@@ -16,7 +16,7 @@ compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.1'
 
 ## Through XML
 ```
-<com.agrawalsuneet.fourfoldloader.FourFoldLoader
+<com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
         android:id="@+id/main_fourfoldloader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

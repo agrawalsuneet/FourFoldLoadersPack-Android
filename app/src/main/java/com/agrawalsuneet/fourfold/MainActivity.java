@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.agrawalsuneet.fourfold.dialog.FourFoldDialog;
-import com.agrawalsuneet.fourfoldloader.FourFoldLoader;
+import com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         loader.setThirdSquareColor(getResources().getColor(R.color.green));
         loader.setForthSquareColor(getResources().getColor(R.color.green));
         loader.setAnimationDuration(800);
-        loader.setDisappearAnimationDurationr(200);
+        loader.setDisappearAnimationDuration(200);
 
         container.addView(loader);
     }

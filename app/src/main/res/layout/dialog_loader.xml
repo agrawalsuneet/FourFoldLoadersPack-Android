@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <com.agrawalsuneet.fourfoldloader.FourFoldLoader
+    <com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
         android:id="@+id/fourfoldloader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

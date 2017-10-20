@@ -17,7 +17,6 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
     var startLoadingDefault = false
 
     var animationDuration = 500
-    var disappearAnimationDuration = 100
 
     var interpolator: Interpolator = AccelerateInterpolator()
 
@@ -28,10 +27,10 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
 
     protected var isLoading: Boolean = false
 
-    protected lateinit var firstSquare: SquareLayout
-    protected lateinit var secondSquare: SquareLayout
-    protected lateinit var thirdSquare: SquareLayout
-    protected lateinit var forthSquare: SquareLayout
+    protected lateinit var firstSquare: SquareView
+    protected lateinit var secondSquare: SquareView
+    protected lateinit var thirdSquare: SquareView
+    protected lateinit var forthSquare: SquareView
 
     protected lateinit var topLinearLayout: LinearLayout
     protected lateinit var bottomLinearLayout: LinearLayout
@@ -57,6 +56,28 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
     }
 
     override fun initAttributes(attrs: AttributeSet) {
+
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.FourSquaresBaseLayout, 0, 0)
+
+        squareLenght = typedArray.getDimensionPixelSize(R.styleable.FourSquaresBaseLayout_loader_squareLength, 100)
+
+        firstSquareColor = typedArray.getColor(R.styleable.FourSquaresBaseLayout_loader_firstSquareColor,
+                resources.getColor(R.color.red))
+
+        secondSquareColor = typedArray.getColor(R.styleable.FourSquaresBaseLayout_loader_secondSquareColor,
+                resources.getColor(R.color.green))
+
+        thirdSquareColor = typedArray.getColor(R.styleable.FourSquaresBaseLayout_loader_thirdSquareColor,
+                resources.getColor(R.color.blue))
+
+        forthSquareColor = typedArray.getColor(R.styleable.FourSquaresBaseLayout_loader_forthSquareColor,
+                resources.getColor(R.color.grey))
+
+        animationDuration = typedArray.getInteger(R.styleable.FourSquaresBaseLayout_loader_animDuration, 500)
+
+        startLoadingDefault = typedArray.getBoolean(R.styleable.FourSquaresBaseLayout_loader_startLoadingDefault, false)
+
+        typedArray.recycle()
     }
 
 
@@ -71,10 +92,10 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
 
         this.orientation = LinearLayout.VERTICAL
 
-        firstSquare = SquareLayout(context, firstSquareColor, squareLenght)
-        secondSquare = SquareLayout(context, secondSquareColor, squareLenght)
-        thirdSquare = SquareLayout(context, thirdSquareColor, squareLenght)
-        forthSquare = SquareLayout(context, forthSquareColor, squareLenght)
+        firstSquare = SquareView(context, firstSquareColor, squareLenght)
+        secondSquare = SquareView(context, secondSquareColor, squareLenght)
+        thirdSquare = SquareView(context, thirdSquareColor, squareLenght)
+        forthSquare = SquareView(context, forthSquareColor, squareLenght)
 
         topLinearLayout = LinearLayout(context)
         topLinearLayout.gravity = Gravity.END

@@ -21,6 +21,8 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
 
     var overridePadding = false
 
+    var disappearAnimationDuration = 100
+
 
     private var mainAnimatorSet: AnimatorSet? = null
     private var anotherSet: AnimatorSet? = null
@@ -78,25 +80,9 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.FourFoldLoader, 0, 0)
 
-        this.squareLenght = typedArray.getDimensionPixelSize(R.styleable.FourFoldLoader_loader_squareLength, 100)
+        disappearAnimationDuration = typedArray.getInteger(R.styleable.FourFoldLoader_fourfold_disappearAnimDuration, 100)
 
-        this.firstSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_loader_firstSquareColor,
-                resources.getColor(R.color.red))
-
-        this.secondSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_loader_secondSquareColor,
-                resources.getColor(R.color.green))
-
-        this.thirdSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_loader_thirdSquareColor,
-                resources.getColor(R.color.blue))
-
-        this.forthSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_loader_forthSquareColor,
-                resources.getColor(R.color.grey))
-
-        this.animationDuration = typedArray.getInteger(R.styleable.FourFoldLoader_loader_animDuration, 500)
-        this.disappearAnimationDuration = typedArray.getInteger(R.styleable.FourFoldLoader_loader_disappear_animDuration, 100)
-
-        this.overridePadding = typedArray.getBoolean(R.styleable.FourFoldLoader_loader_overridePadding, false)
-        this.startLoadingDefault = typedArray.getBoolean(R.styleable.FourFoldLoader_loader_startLoadingDefault, false)
+        overridePadding = typedArray.getBoolean(R.styleable.FourFoldLoader_fourfold_overridePadding, false)
 
         typedArray.recycle()
     }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="FourSquaresBaseLayout">
-
+    <declare-styleable name="SquareView">
+        <attr name="squareLength" format="dimension" />
+        <attr name="squareColor" format="color" />
     </declare-styleable>
 
-    <declare-styleable name="FourFoldLoader">
+    <declare-styleable name="FourSquaresBaseLayout">
         <attr name="loader_squareColor" format="color" />
         <attr name="loader_squareLength" format="dimension" />
         <attr name="loader_firstSquareColor" format="color" />
@@ -13,9 +14,16 @@
         <attr name="loader_thirdSquareColor" format="color" />
         <attr name="loader_forthSquareColor" format="color" />
         <attr name="loader_animDuration" format="integer" />
-        <attr name="loader_disappear_animDuration" format="integer" />
-        <attr name="loader_overridePadding" format="boolean" />
         <attr name="loader_startLoadingDefault" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="FourFoldLoader">
+        <attr name="fourfold_disappearAnimDuration" format="integer" />
+        <attr name="fourfold_overridePadding" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ZipZapLoader">
+
     </declare-styleable>
 
     <item name="from_alpha" format="float" type="dimen">1.0</item>

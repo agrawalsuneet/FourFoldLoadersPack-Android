@@ -11,10 +11,10 @@ import com.agrawalsuneet.fourfoldloader.R
  * Created by ballu on 09/04/17.
  */
 
-class SquareLayout : View, LoaderContract {
+class SquareView : View, LoaderContract {
 
-    private var mSquareLength = 100
-    private var mSquareColor = resources.getColor(R.color.grey)
+    private var mSquareLength: Int = 100
+    private var mSquareColor: Int = resources.getColor(R.color.grey)
     private lateinit var squarePaint: Paint
 
     constructor(context: Context) : super(context) {}
@@ -34,11 +34,11 @@ class SquareLayout : View, LoaderContract {
     }
 
     override fun initAttributes(attrs: AttributeSet) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.FourFoldLoader, 0, 0)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.SquareView, 0, 0)
 
-        this.mSquareLength = typedArray.getDimension(R.styleable.FourFoldLoader_loader_squareLength,
+        this.mSquareLength = typedArray.getDimension(R.styleable.SquareView_squareLength,
                 100f).toInt()
-        this.mSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_loader_squareColor,
+        this.mSquareColor = typedArray.getColor(R.styleable.SquareView_squareColor,
                 resources.getColor(R.color.grey))
         typedArray.recycle()
         initValues()

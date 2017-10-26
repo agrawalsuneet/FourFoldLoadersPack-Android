@@ -43,15 +43,24 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
 
     constructor(context: Context) : super(context) {}
 
-    constructor(context: Context, squareColor: Int, length: Int) : super(context) {
-    }
-
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         initAttributes(attrs!!)
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         initAttributes(attrs!!)
+    }
+
+    constructor(context: Context, squareLenght: Int, firstSquareColor: Int,
+                secondSquareColor: Int, thirdSquareColor: Int,
+                forthSquareColor: Int, startLoadingDefault: Boolean) : super(context) {
+        this.squareLenght = squareLenght
+        this.firstSquareColor = firstSquareColor
+        this.secondSquareColor = secondSquareColor
+        this.thirdSquareColor = thirdSquareColor
+        this.forthSquareColor = forthSquareColor
+        this.startLoadingDefault = startLoadingDefault
+        initView()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

@@ -40,21 +40,12 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
         initView()
     }
 
-    constructor(context: Context, startLoadingDefault: Boolean) : super(context) {
-        this.startLoadingDefault = startLoadingDefault
-        initView()
-    }
-
     constructor(context: Context, squareLenght: Int, firstSquareColor: Int,
                 secondSquareColor: Int, thirdSquareColor: Int,
-                forthSquareColor: Int, startLoadingDefault: Boolean) : super(context) {
-        this.squareLenght = squareLenght
-        this.firstSquareColor = firstSquareColor
-        this.secondSquareColor = secondSquareColor
-        this.thirdSquareColor = thirdSquareColor
-        this.forthSquareColor = forthSquareColor
-        this.startLoadingDefault = startLoadingDefault
-        initView()
+                forthSquareColor: Int, startLoadingDefault: Boolean)
+            : super(context, squareLenght, firstSquareColor,
+            secondSquareColor, thirdSquareColor,
+            forthSquareColor, startLoadingDefault) {
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
@@ -92,12 +83,11 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
     }
 
     override fun initView() {
+        super.initView()
 
         //set initial values
         noOfSquareVisible = 4
         mainSquare = 1
-
-        super.initView()
 
         //set pivot of squares
         firstSquare.pivotX = squareLenght.toFloat()
@@ -304,7 +294,7 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
         if (isLoading) {
             if (viewsToHide != null && viewsToHide!!.size > 0) {
 
-                disappearAlphaAnim = AlphaAnimation(R.dimen.to_alpha.toFloat(), 0f)
+                disappearAlphaAnim = AlphaAnimation(R.dimen.fourfold_to_alpha.toFloat(), 0f)
                 disappearAlphaAnim!!.duration = disappearAnimationDuration.toLong()
 
                 disappearAlphaAnim!!.setAnimationListener(object : Animation.AnimationListener {

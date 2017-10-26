@@ -26,7 +26,10 @@
 
     </declare-styleable>
 
-    <item name="from_alpha" format="float" type="dimen">1.0</item>
-    <item name="to_alpha" format="float" type="dimen">0.5</item>
+    <item name="fourfold_from_alpha" format="float" type="dimen">1.0</item>
+    <item name="fourfold_to_alpha" format="float" type="dimen">0.5</item>
+
+    <item name="zipzap_from_scale" format="float" type="dimen">1.0</item>
+    <item name="zipzap_to_scale" format="float" type="dimen">0.75</item>
 
 </resources>

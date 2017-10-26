@@ -8,7 +8,7 @@
         android:valueType="floatType" />
     <objectAnimator
         android:propertyName="alpha"
-        android:valueFrom="@dimen/from_alpha"
-        android:valueTo="@dimen/to_alpha"
+        android:valueFrom="@dimen/fourfold_from_alpha"
+        android:valueTo="@dimen/fourfold_to_alpha"
         android:valueType="floatType" />
 </set>

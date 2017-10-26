@@ -26,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        initControls();
-        addViewProgrammatically();
+        //initControls();
+        //addViewProgrammatically();
     }
 
-    private void initControls() {
+    /*private void initControls() {
         mainLoader = (FourFoldLoader) findViewById(R.id.main_fourfoldloader);
         button = (Button) findViewById(R.id.button);
 
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
+    }*/
 
     private void addViewProgrammatically() {
         container = (LinearLayout) findViewById(R.id.container);

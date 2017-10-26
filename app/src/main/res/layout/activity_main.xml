@@ -11,8 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:loader_startLoadingDefault="true"
-        app:loader_squareLength="80dp"
-        app:loader_animDuration="200"/>
+        app:loader_squareLength="40dp"
+        app:loader_animDuration="200"
+        app:loader_firstSquareColor="@color/blue"
+        app:loader_secondSquareColor="@color/blue"
+        app:loader_thirdSquareColor="@color/blue"
+        app:loader_forthSquareColor="@color/blue"/>
 
     <!--<com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
         android:id="@+id/main_fourfoldloader"

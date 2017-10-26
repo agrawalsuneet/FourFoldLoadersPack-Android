@@ -23,7 +23,8 @@
     </declare-styleable>
 
     <declare-styleable name="ZipZapLoader">
-
+        <attr name="zipzap_fromScale" format="float" />
+        <attr name="zipzap_toScale" format="float" />
     </declare-styleable>
 
     <item name="fourfold_from_alpha" format="float" type="dimen">1.0</item>

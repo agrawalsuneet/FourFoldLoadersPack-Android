@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
+import com.agrawalsuneet.fourfoldloader.R
 import com.agrawalsuneet.fourfoldloader.basicviews.FourSquaresBaseLayout
 
 /**
@@ -13,7 +14,7 @@ import com.agrawalsuneet.fourfoldloader.basicviews.FourSquaresBaseLayout
 open class ZipZapLoader : FourSquaresBaseLayout {
 
     var fromScale: Float = 1.0f
-    var toScale: Float = 0.5f
+    var toScale: Float = 0.8f
 
     private var mainSquare = 1
 
@@ -41,48 +42,46 @@ open class ZipZapLoader : FourSquaresBaseLayout {
         initView()
     }
 
+    override fun initAttributes(attrs: AttributeSet) {
+        super.initAttributes(attrs)
+
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ZipZapLoader, 0, 0)
+
+        fromScale = typedArray.getFloat(R.styleable.ZipZapLoader_zipzap_fromScale, 1.0f)
+
+        toScale = typedArray.getFloat(R.styleable.ZipZapLoader_zipzap_toScale, 0.8f)
+
+        typedArray.recycle()
+    }
+
     override fun startLoading() {
 
         val scaleAnimation = getScaleAnimation()
-
-        /*val scaleAnimation = ScaleAnimation(1.0f, 0.75f, 1.0f, 0.75f)
-        scaleAnimation.fillAfter = true
-        scaleAnimation.duration = animationDuration.toLong()*/
 
         var targetView: View = firstSquare
 
         when (mainSquare) {
             1 -> {
-                //firstSquare.startAnimation(scaleAnimation)
                 targetView = firstSquare
                 mainSquare = 2
             }
             2 -> {
-                //firstSquare.startAnimation(scaleAnimation)
                 targetView = secondSquare
                 mainSquare = 3
             }
 
             3 -> {
-                //firstSquare.startAnimation(scaleAnimation)
                 targetView = thirdSquare
                 mainSquare = 4
             }
             4 -> {
-                //firstSquare.startAnimation(scaleAnimation)
                 targetView = forthSquare
                 mainSquare = 1
                 isScallingDown = !isScallingDown
             }
         }
 
-        //scaleAnimation.start()
-
-        /*val set = AnimationSet(true)
-        set.addAnimation(scaleAnimation)*/
-
         targetView.startAnimation(scaleAnimation)
-
     }
 
     private fun getScaleAnimation(): ScaleAnimation {
@@ -90,9 +89,6 @@ open class ZipZapLoader : FourSquaresBaseLayout {
 
         when (isScallingDown) {
             true -> {
-                /*scaleAnim = ScaleAnimation(R.dimen.zipzap_from_scale.toFloat(), R.dimen.zipzap_to_scale.toFloat(),
-                        R.dimen.zipzap_from_scale.toFloat(), R.dimen.zipzap_to_scale.toFloat())*/
-
                 scaleAnim = ScaleAnimation(fromScale, toScale, fromScale, toScale,
                         Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
             }
@@ -106,6 +102,7 @@ open class ZipZapLoader : FourSquaresBaseLayout {
 
         scaleAnim.fillAfter = true
         scaleAnim.duration = animationDuration.toLong()
+        scaleAnim.interpolator = interpolator
 
         scaleAnim.setAnimationListener(object : Animation.AnimationListener {
 

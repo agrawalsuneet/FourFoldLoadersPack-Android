@@ -5,6 +5,6 @@
     <item
         android:id="@+id/show_dialog"
         android:icon="@android:drawable/ic_menu_view"
-        android:title="show loader dialog"
+        android:title="show fourfoldLoader dialog"
         app:showAsAction="always" />
 </menu>

@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="FourFoldLoader">
-        <attr name="loader_solidColor" format="color" />
+    <declare-styleable name="SquareView">
+        <attr name="squareLength" format="dimension" />
+        <attr name="squareColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="FourSquaresBaseLayout">
+        <attr name="loader_squareColor" format="color" />
         <attr name="loader_squareLength" format="dimension" />
         <attr name="loader_firstSquareColor" format="color" />
         <attr name="loader_secondSquareColor" format="color" />
         <attr name="loader_thirdSquareColor" format="color" />
         <attr name="loader_forthSquareColor" format="color" />
         <attr name="loader_animDuration" format="integer" />
-        <attr name="loader_disappear_animDuration" format="integer" />
-        <attr name="loader_overridePadding" format="boolean" />
         <attr name="loader_startLoadingDefault" format="boolean" />
     </declare-styleable>
 
-    <item name="from_alpha" format="float" type="dimen">1.0</item>
-    <item name="to_alpha" format="float" type="dimen">0.5</item>
+    <declare-styleable name="FourFoldLoader">
+        <attr name="fourfold_disappearAnimDuration" format="integer" />
+        <attr name="fourfold_overridePadding" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ZipZapLoader">
+        <attr name="zipzap_fromScale" format="float" />
+        <attr name="zipzap_toScale" format="float" />
+    </declare-styleable>
+
+    <item name="fourfold_from_alpha" format="float" type="dimen">1.0</item>
+    <item name="fourfold_to_alpha" format="float" type="dimen">0.5</item>
+
+    <item name="zipzap_from_scale" format="float" type="dimen">1.0</item>
+    <item name="zipzap_to_scale" format="float" type="dimen">0.75</item>
 
 </resources>

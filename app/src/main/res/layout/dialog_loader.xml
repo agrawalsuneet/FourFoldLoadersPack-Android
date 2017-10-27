@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <com.agrawalsuneet.fourfoldloader.FourFoldLoader
+    <com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
         android:id="@+id/fourfoldloader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         android:layout_margin="16dp"
         android:padding="30dp"
         app:loader_animDuration="500"
-        app:loader_disappear_animDuration="100"
+        app:fourfold_disappearAnimDuration="100"
         app:loader_squareLength="60dp"
         app:loader_firstSquareColor="@color/indigo"
         app:loader_secondSquareColor="@color/purple"

@@ -94,8 +94,8 @@ class MainActivity : AppCompatActivity() {
                 resources.getColor(R.color.blue),
                 resources.getColor(R.color.colorAccent), true)
                 .apply {
-                    animationDuration = 2000
-                    disappearAnimationDuration = 1000
+                    animationDuration = 200
+                    disappearAnimationDuration = 100
                 }
 
         container!!.addView(fourfoldLoader)

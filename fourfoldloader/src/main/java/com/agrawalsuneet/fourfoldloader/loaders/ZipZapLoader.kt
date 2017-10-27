@@ -14,11 +14,18 @@ import com.agrawalsuneet.fourfoldloader.basicviews.FourSquaresBaseLayout
 open class ZipZapLoader : FourSquaresBaseLayout {
 
     var fromScale: Float = 1.0f
+        set(value) {
+            field = value
+            setInitialScale()
+        }
+
     var toScale: Float = 0.8f
 
     private var mainSquare = 1
 
     private var isScallingDown = true
+
+    private var scaleAnim: ScaleAnimation? = null
 
     constructor(context: Context) : super(context) {
         initView()
@@ -42,6 +49,29 @@ open class ZipZapLoader : FourSquaresBaseLayout {
         initView()
     }
 
+    override fun initView() {
+        super.initView()
+
+        mainSquare = 1
+        setInitialScale()
+    }
+
+    private fun setInitialScale() {
+        if (fromScale != 0.0f && fromScale != 1.0f && firstSquare != null ) {
+            firstSquare!!.scaleX = fromScale
+            firstSquare!!.scaleY = fromScale
+
+            secondSquare.scaleX = fromScale
+            secondSquare.scaleY = fromScale
+
+            thirdSquare.scaleX = fromScale
+            thirdSquare.scaleY = fromScale
+
+            forthSquare.scaleX = fromScale
+            forthSquare.scaleY = fromScale
+        }
+    }
+
     override fun initAttributes(attrs: AttributeSet) {
         super.initAttributes(attrs)
 
@@ -58,11 +88,11 @@ open class ZipZapLoader : FourSquaresBaseLayout {
 
         val scaleAnimation = getScaleAnimation()
 
-        var targetView: View = firstSquare
+        var targetView: View = firstSquare!!
 
         when (mainSquare) {
             1 -> {
-                targetView = firstSquare
+                targetView = firstSquare!!
                 mainSquare = 2
             }
             2 -> {
@@ -82,6 +112,7 @@ open class ZipZapLoader : FourSquaresBaseLayout {
         }
 
         targetView.startAnimation(scaleAnimation)
+        isLoading = true
     }
 
     private fun getScaleAnimation(): ScaleAnimation {
@@ -108,7 +139,9 @@ open class ZipZapLoader : FourSquaresBaseLayout {
 
 
             override fun onAnimationEnd(p0: Animation?) {
-                startLoading()
+                if (isLoading) {
+                    startLoading()
+                }
             }
 
             override fun onAnimationRepeat(p0: Animation?) {
@@ -120,6 +153,28 @@ open class ZipZapLoader : FourSquaresBaseLayout {
         })
 
         return scaleAnim
+    }
+
+    override fun stopLoading() {
+
+        isLoading = false
+
+        if (scaleAnim != null) {
+            scaleAnim!!.cancel()
+            scaleAnim!!.setAnimationListener(null)
+            scaleAnim = null
+        }
+
+        this.removeView(firstSquare)
+        this.removeView(secondSquare)
+        this.removeView(thirdSquare)
+        this.removeView(forthSquare)
+
+        this.removeView(topLinearLayout)
+        this.removeView(bottomLinearLayout)
+
+
+        initView()
     }
 
 }

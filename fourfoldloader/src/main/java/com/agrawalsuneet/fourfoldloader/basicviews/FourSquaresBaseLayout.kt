@@ -32,7 +32,7 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
     var isLoading: Boolean = false
         protected set
 
-    protected lateinit var firstSquare: SquareView
+    protected var firstSquare: SquareView? = null
     protected lateinit var secondSquare: SquareView
     protected lateinit var thirdSquare: SquareView
     protected lateinit var forthSquare: SquareView
@@ -149,4 +149,6 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
     }
 
     abstract fun startLoading()
+
+    abstract fun stopLoading()
 }

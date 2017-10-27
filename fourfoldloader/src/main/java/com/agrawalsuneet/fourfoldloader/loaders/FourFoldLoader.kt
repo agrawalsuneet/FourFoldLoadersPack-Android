@@ -90,8 +90,8 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
         mainSquare = 1
 
         //set pivot of squares
-        firstSquare.pivotX = squareLenght.toFloat()
-        firstSquare.pivotY = squareLenght.toFloat()
+        firstSquare!!.pivotX = squareLenght.toFloat()
+        firstSquare!!.pivotY = squareLenght.toFloat()
 
         secondSquare.pivotX = 0f
         secondSquare.pivotY = squareLenght.toFloat()
@@ -144,7 +144,7 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
                     anotherSet!!.interpolator = interpolator
                     anotherSet!!.start()
 
-                    viewsToHide!!.add(firstSquare)
+                    viewsToHide!!.add(firstSquare!!)
                     viewsToHide!!.add(secondSquare)
                 }
             }
@@ -192,7 +192,7 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
                         mainAnimatorSet!!.interpolator = interpolator
                         mainAnimatorSet!!.start()
 
-                        viewsToHide!!.add(targetView)
+                        viewsToHide!!.add(targetView!!)
                     }
                 }
 
@@ -225,7 +225,7 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
                         this.overlay.add(firstSquare)
                         this.overlay.add(forthSquare)
 
-                        firstSquare.visibility = View.VISIBLE
+                        firstSquare!!.visibility = View.VISIBLE
                         forthSquare.visibility = View.VISIBLE
 
                         mainAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.left_open_left) as AnimatorSet
@@ -268,7 +268,7 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
 
                     this.overlay.add(targetView)
 
-                    targetView.setVisibility(View.VISIBLE)
+                    targetView!!.setVisibility(View.VISIBLE)
 
                     mainAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.top_open_up) as AnimatorSet
                     mainAnimatorSet!!.setTarget(targetView)
@@ -325,7 +325,7 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
         }
     }
 
-    fun stopLoading() {
+    override fun stopLoading() {
 
         isLoading = false
 
@@ -345,7 +345,7 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
             disappearAlphaAnim = null
         }
 
-        firstSquare.visibility = View.GONE
+        firstSquare!!.visibility = View.GONE
         secondSquare.visibility = View.GONE
         thirdSquare.visibility = View.GONE
         forthSquare.visibility = View.GONE

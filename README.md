@@ -1,7 +1,7 @@
 # FourFold Loader
-> Android FourFoldLoader            [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=5960945bda5cfa00016422c6&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/5960945bda5cfa00016422c6/build/latest?branch=master)
+> Android FourFoldLoader            [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=5961de4056635b00014ecda7&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/5961de4056635b00014ecda7/build/latest?branch=master)
 
-> A replacement of default android material progressbar with fourfold loader
+> A replacement of default android material progressbar with fourfold fourfoldLoader
 
 ![fourfoldloader](https://user-images.githubusercontent.com/12999622/26966423-9f680546-4d17-11e7-86db-f59b914a155f.gif)
 ![fourfoldloaderdialog](https://user-images.githubusercontent.com/12999622/26966424-9f7a9846-4d17-11e7-89fd-323293d36c08.gif)
@@ -16,7 +16,7 @@ compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.1'
 
 ## Through XML
 ```
-<com.agrawalsuneet.fourfoldloader.FourFoldLoader
+<com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
         android:id="@+id/main_fourfoldloader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,40 +47,40 @@ compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.1'
    if you want to override the padding, 
    please set this attribute as true and set the required padding.
 6. `startLoadingDefault (boolean) (defaultValue = false)`
-   set if you want to start loading the loader by itself 
+   set if you want to start loading the fourfoldLoader by itself
    when its visible without calling startLoading().
 
 ##  Through Code
 ```
         LinearLayout container = (LinearLayout) findViewById(R.id.container);
 
-        /*FourFoldLoader loader = new FourFoldLoader(this, 200,
+        /*FourFoldLoader fourfoldLoader = new FourFoldLoader(this, 200,
                 getResources().getColor(R.color.green),
                 getResources().getColor(R.color.red),
                 getResources().getColor(R.color.blue),
                 getResources().getColor(R.color.colorAccent), true);*/
 
-        loader = new FourFoldLoader(this, true);
-        loader.setSquareLenght(200);
-        loader.setFirstSquareColor(ContextCompat.getColor(this, R.color.green));
-        loader.setSecondSquareColor(ContextCompat.getColor(this, R.color.red));
-        loader.setThirdSquareColor(ContextCompat.getColor(this, R.color.blue));
-        loader.setForthSquareColor(ContextCompat.getColor(this, R.color.indigo));
-        loader.setAnimationDuration(800);
-        loader.setDisappearAnimationDurationr(200);
+        fourfoldLoader = new FourFoldLoader(this, true);
+        fourfoldLoader.setSquareLenght(200);
+        fourfoldLoader.setFirstSquareColor(ContextCompat.getColor(this, R.color.green));
+        fourfoldLoader.setSecondSquareColor(ContextCompat.getColor(this, R.color.red));
+        fourfoldLoader.setThirdSquareColor(ContextCompat.getColor(this, R.color.blue));
+        fourfoldLoader.setForthSquareColor(ContextCompat.getColor(this, R.color.indigo));
+        fourfoldLoader.setAnimationDuration(800);
+        fourfoldLoader.setDisappearAnimationDurationr(200);
 
-        container.addView(loader);
+        container.addView(fourfoldLoader);
 ```
 
-if want to start/stop loading of loader on some view click event
+if want to start/stop loading of fourfoldLoader on some view click event
 ```
 view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (loader.isLoading()) {
-                    loader.stopLoading();
+                if (fourfoldLoader.isLoading()) {
+                    fourfoldLoader.stopLoading();
                 } else {
-                    loader.startLoading();
+                    fourfoldLoader.startLoading();
                 }
             }
         });
@@ -93,7 +93,7 @@ view.setOnClickListener(new View.OnClickListener() {
 
 2. `public FourFoldLoader(Context context, boolean startLoadingDefault) `
    added a parameter setting the value of startLoadingDefault 
-   which will start loading the loader as and when it will be
+   which will start loading the fourfoldLoader as and when it will be
    visible
 
 3. `public FourFoldLoader(Context context, int squareLenght, int firstSquareColor,
@@ -105,8 +105,8 @@ view.setOnClickListener(new View.OnClickListener() {
    overridePadding can be set through setters.
    Interpolator can also be set using setter for animation
    
-  no need to call `invalidate()` for loader explicitly after any setter. 
-  loader will take care by itself
+  no need to call `invalidate()` for fourfoldLoader explicitly after any setter.
+  fourfoldLoader will take care by itself
 
 
 ### Please note that minimum API level required to import this library is API 18 because of Android class ViewOverlay.

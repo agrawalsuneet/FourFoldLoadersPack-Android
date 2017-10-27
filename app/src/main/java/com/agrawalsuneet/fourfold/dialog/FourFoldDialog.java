@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.agrawalsuneet.fourfold.R;
 import com.agrawalsuneet.fourfold.dialog.helper.LoaderController;
-import com.agrawalsuneet.fourfoldloader.FourFoldLoader;
+import com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader;
 
 /**
  * Created by Suneet on 13/01/17.
@@ -91,7 +91,7 @@ public class FourFoldDialog extends DialogFragment {
         }
 
         if (mController.fadeAnimDuration != 0){
-            mLoader.setDisappearAnimationDurationr(mController.fadeAnimDuration);
+            mLoader.setDisappearAnimationDuration(mController.fadeAnimDuration);
         }
 
         if (mController.firstSquareColor != 0) {

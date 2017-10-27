@@ -162,8 +162,8 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
                         //if mainSquare is 1 than 2 should close
                         //or if main square is 4 than 3 should close
                         val targetView: View? = if (mainSquare == 1) secondSquare else thirdSquare
-                        topLinearLayout!!.gravity = Gravity.START
-                        bottomLinearLayout!!.gravity = Gravity.START
+                        topLinearLayout.gravity = Gravity.START
+                        bottomLinearLayout.gravity = Gravity.START
 
                         this.overlay.add(targetView!!)
 
@@ -268,7 +268,7 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
 
                     this.overlay.add(targetView)
 
-                    targetView!!.setVisibility(View.VISIBLE)
+                    targetView!!.visibility = View.VISIBLE
 
                     mainAnimatorSet = AnimatorInflater.loadAnimator(context, R.animator.top_open_up) as AnimatorSet
                     mainAnimatorSet!!.setTarget(targetView)

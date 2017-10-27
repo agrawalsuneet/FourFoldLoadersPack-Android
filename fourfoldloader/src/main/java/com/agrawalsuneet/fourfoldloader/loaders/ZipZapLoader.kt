@@ -116,7 +116,7 @@ open class ZipZapLoader : FourSquaresBaseLayout {
     }
 
     private fun getScaleAnimation(): ScaleAnimation {
-        var scaleAnim: ScaleAnimation
+        val scaleAnim: ScaleAnimation
 
         when (isScallingDown) {
             true -> {

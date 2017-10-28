@@ -3,32 +3,66 @@
 
 > A replacement of default android material progressbar with fourfold fourfoldLoader
 
+
+### FourFoldLoader
 ![fourfoldloader](https://user-images.githubusercontent.com/12999622/26966423-9f680546-4d17-11e7-86db-f59b914a155f.gif)
 ![fourfoldloaderdialog](https://user-images.githubusercontent.com/12999622/26966424-9f7a9846-4d17-11e7-89fd-323293d36c08.gif)
 
 
+### ZipZapLoader
 
 ## How To use
 include below dependency in build.gradle of application and compile it
 ```
-compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.1'
+compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.2'
 ```
 
-## Through XML
+### FourFoldLoader
+##### Through XML
 ```
 <com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
         android:id="@+id/main_fourfoldloader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        app:fourfold_disappearAnimDuration="100"
         app:loader_animDuration="500"
-        app:loader_disappear_animDuration="100"
         app:loader_firstSquareColor="@color/pink"
-        app:loader_secondSquareColor="@color/blue"
-        app:loader_thirdSquareColor="@color/purple"
         app:loader_forthSquareColor="@color/indigo"
+        app:loader_secondSquareColor="@color/blue"
         app:loader_squareLength="60dp"
         app:loader_startLoadingDefault="true"
-        app:loader_overridePadding="false" />
+        app:loader_thirdSquareColor="@color/purple" />
+```
+##### Through Code
+* Kotlin
+```
+        var fourfoldLoader = FourFoldLoader(this, 200,
+                resources.getColor(R.color.green),
+                resources.getColor(R.color.red),
+                resources.getColor(R.color.blue),
+                resources.getColor(R.color.colorAccent), true)
+                .apply {
+                    animationDuration = 200
+                    disappearAnimationDuration = 100
+                }
+
+        container.addView(fourfoldLoader)
+```
+
+* Java
+```
+        FourFoldLoader loader = new FourFoldLoader(this, 40,
+                ContextCompat.getColor(this, R.color.red),
+                ContextCompat.getColor(this, R.color.green),
+                ContextCompat.getColor(this, R.color.blue),
+                ContextCompat.getColor(this, R.color.colorAccent),
+                true);
+
+        loader.setDisappearAnimationDuration(100);
+        loader.setAnimationDuration(500);
+
+        container.addView(fourfoldLoader);
 ```
 
 ### Properties
@@ -50,28 +84,6 @@ compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.1'
    set if you want to start loading the fourfoldLoader by itself
    when its visible without calling startLoading().
 
-##  Through Code
-```
-        LinearLayout container = (LinearLayout) findViewById(R.id.container);
-
-        /*FourFoldLoader fourfoldLoader = new FourFoldLoader(this, 200,
-                getResources().getColor(R.color.green),
-                getResources().getColor(R.color.red),
-                getResources().getColor(R.color.blue),
-                getResources().getColor(R.color.colorAccent), true);*/
-
-        fourfoldLoader = new FourFoldLoader(this, true);
-        fourfoldLoader.setSquareLenght(200);
-        fourfoldLoader.setFirstSquareColor(ContextCompat.getColor(this, R.color.green));
-        fourfoldLoader.setSecondSquareColor(ContextCompat.getColor(this, R.color.red));
-        fourfoldLoader.setThirdSquareColor(ContextCompat.getColor(this, R.color.blue));
-        fourfoldLoader.setForthSquareColor(ContextCompat.getColor(this, R.color.indigo));
-        fourfoldLoader.setAnimationDuration(800);
-        fourfoldLoader.setDisappearAnimationDurationr(200);
-
-        container.addView(fourfoldLoader);
-```
-
 if want to start/stop loading of fourfoldLoader on some view click event
 ```
 view.setOnClickListener(new View.OnClickListener() {
@@ -91,12 +103,7 @@ view.setOnClickListener(new View.OnClickListener() {
 1. `public FourFoldLoader(Context context)`
    default Constructor for any view
 
-2. `public FourFoldLoader(Context context, boolean startLoadingDefault) `
-   added a parameter setting the value of startLoadingDefault 
-   which will start loading the fourfoldLoader as and when it will be
-   visible
-
-3. `public FourFoldLoader(Context context, int squareLenght, int firstSquareColor,
+2. `public FourFoldLoader(Context context, int squareLenght, int firstSquareColor,
                           int secondSquareColor, int thirdSquareColor,
                           int forthSquareColor, boolean startLoadingDefault)`
    can set sqaureLength, all square colors with above constructors.
@@ -111,7 +118,10 @@ view.setOnClickListener(new View.OnClickListener() {
 
 ### Please note that minimum API level required to import this library is API 18 because of Android class ViewOverlay.
 
-Feel free to drop a mail at agrawalsuneet@gmail.com if face any issue or require any additional functionality in it.
+Please take a 2 mins survey to make this library better [here](https://goo.gl/forms/ok6U8r2awTNkZC912).
+It won't take more than 2 mins I promise :)
+
+ or feel free to drop an email at agrawalsuneet@gmail.com if face any issue or require any additional functionality in it.
 
 ```
 Copyright 2017 Suneet Agrawal

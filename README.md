@@ -10,6 +10,7 @@
 
 
 ### ZipZapLoader
+A set of four square scaling in a linear manner and scaling back to original position
 
 ## How To use
 include below dependency in build.gradle of application and compile it
@@ -62,7 +63,7 @@ compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.2'
         loader.setDisappearAnimationDuration(100);
         loader.setAnimationDuration(500);
 
-        container.addView(fourfoldLoader);
+        container.addView(loader);
 ```
 
 ### Properties
@@ -112,8 +113,57 @@ view.setOnClickListener(new View.OnClickListener() {
    overridePadding can be set through setters.
    Interpolator can also be set using setter for animation
    
-  no need to call `invalidate()` for fourfoldLoader explicitly after any setter.
-  fourfoldLoader will take care by itself
+
+### ZipZapLoader
+##### Through XML
+```
+<com.agrawalsuneet.fourfoldloader.loaders.ZipZapLoader
+        android:id="@+id/zipzap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:loader_animDuration="200"
+        app:loader_firstSquareColor="@color/blue"
+        app:loader_forthSquareColor="@color/blue"
+        app:loader_secondSquareColor="@color/blue"
+        app:loader_squareLength="40dp"
+        app:loader_startLoadingDefault="false"
+        app:loader_thirdSquareColor="@color/blue"
+        app:zipzap_fromScale="0.9"
+        app:zipzap_toScale="0.7" />
+```
+##### Through Code
+* Kotlin
+```
+        zipzap = ZipZapLoader(this, 120,
+                ContextCompat.getColor(this, R.color.red),
+                ContextCompat.getColor(this, R.color.red),
+                ContextCompat.getColor(this, R.color.red),
+                ContextCompat.getColor(this, R.color.red),
+                false).apply {
+            fromScale = 1.0f
+            toScale = 0.8f
+            animationDuration = 1000
+        }
+
+        container!!.addView(zipzap)
+```
+
+* Java
+```ZipZapLoader zipZapLoader = new ZipZapLoader(this, 40,
+                ContextCompat.getColor(this, R.color.red),
+                ContextCompat.getColor(this, R.color.green),
+                ContextCompat.getColor(this, R.color.blue),
+                ContextCompat.getColor(this, R.color.colorAccent),
+                true);
+        
+        zipZapLoader.setAnimationDuration(500);
+        zipZapLoader.setFromScale(1.0f);
+        zipZapLoader.setToScale(0.8f);
+
+        container.addView(zipZapLoader);
+```
+  
+  
 
 
 ### Please note that minimum API level required to import this library is API 18 because of Android class ViewOverlay.

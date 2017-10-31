@@ -10,7 +10,9 @@
 
 
 ### ZipZapLoader
-A set of four square scaling in a linear manner and scaling back to original position
+![zipzaploader](https://user-images.githubusercontent.com/12999622/32248451-a304a664-be7d-11e7-8c3e-d149c09da599.gif)
+
+Other loaders: [LinearDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [CircularDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [LazyLoader](https://github.com/agrawalsuneet/DotsLoader), [TashieLoader](https://github.com/agrawalsuneet/DotsLoader), [ClockLoader](https://github.com/agrawalsuneet/LoadersPack)
 
 ## How To use
 include below dependency in build.gradle of application and compile it
@@ -169,10 +171,7 @@ view.setOnClickListener(new View.OnClickListener() {
 ### Please note that minimum API level required to import this library is API 18 because of Android class ViewOverlay.
 
 Please take a 2 mins survey to make this library better [here](https://goo.gl/forms/ok6U8r2awTNkZC912).
-It won't take more than 2 mins I promise :)
-
- or feel free to drop an email at agrawalsuneet@gmail.com if face any issue or require any additional functionality in it.
-
+It won't take more than 2 mins I promise :) or feel free to drop an email at agrawalsuneet@gmail.com if face any issue or require any additional functionality in it.
 ```
 Copyright 2017 Suneet Agrawal
 

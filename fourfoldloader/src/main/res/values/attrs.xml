@@ -27,6 +27,12 @@
         <attr name="zipzap_toScale" format="float" />
     </declare-styleable>
 
+    <declare-styleable name="RectangleView">
+        <attr name="rectLength" format="dimension" />
+        <attr name="rectBreadth" format="dimension" />
+        <attr name="rectColor" format="color" />
+    </declare-styleable>
+
     <item name="fourfold_from_alpha" format="float" type="dimen">1.0</item>
     <item name="fourfold_to_alpha" format="float" type="dimen">0.5</item>
 

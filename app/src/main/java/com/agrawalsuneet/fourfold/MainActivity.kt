@@ -3,12 +3,9 @@ package com.agrawalsuneet.fourfold
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.LinearLayout
 
-import com.agrawalsuneet.fourfold.dialog.FourFoldDialog
 import com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
 import com.agrawalsuneet.fourfoldloader.loaders.ZipZapLoader
 
@@ -25,13 +22,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_2)
 
         container = findViewById(R.id.container) as LinearLayout
 
         //initZipZapLoader()
-        initControls();
-        initFourfoldLoader();
+        //initControls();
+        //initFourfoldLoader();
 
     }
 
@@ -99,39 +96,5 @@ class MainActivity : AppCompatActivity() {
                 }
 
         container!!.addView(fourfoldLoader)
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.show_dialog -> {
-                showAlertDialog()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun showAlertDialog() {
-        val dotsDialog = FourFoldDialog.Builder(this)
-                .setTextColor(R.color.white)
-                .setMessage("Loading...")
-                .setTextSize(24f)
-                .setFirstSquareColor(ContextCompat.getColor(this, R.color.white))
-                .setSecondSquareColor(ContextCompat.getColor(this, R.color.white))
-                .setThirdSquareColor(ContextCompat.getColor(this, R.color.white))
-                .setForthSquareColor(ContextCompat.getColor(this, R.color.white))
-                .setAnimDuration(800)
-                .setFadeAnimDuration(200)
-                .create()
-
-        //dotsDialog.setCancelable(false);
-        dotsDialog.show(supportFragmentManager, "dotsDialog")
     }
 }

@@ -28,8 +28,8 @@
     </declare-styleable>
 
     <declare-styleable name="RectangleView">
-        <attr name="rectLength" format="dimension" />
-        <attr name="rectBreadth" format="dimension" />
+        <attr name="rectWidth" format="dimension" />
+        <attr name="rectHeight" format="dimension" />
         <attr name="rectColor" format="color" />
     </declare-styleable>
 

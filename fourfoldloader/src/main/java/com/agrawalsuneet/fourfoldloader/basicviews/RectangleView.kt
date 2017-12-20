@@ -12,17 +12,17 @@ import com.agrawalsuneet.fourfoldloader.R
  */
 class RectangleView : View, LoaderContract {
 
-    private var rectLength: Int = 50
-    private var rectBreadth: Int = 100
+    private var rectWidth: Int = 50
+    private var rectHeight: Int = 100
 
     private var rectColor: Int = resources.getColor(R.color.grey)
     private lateinit var rectPaint: Paint
 
     constructor(context: Context) : super(context) {}
 
-    constructor(context: Context, length: Int, breadth: Int, color: Int) : super(context) {
-        this.rectLength = length
-        this.rectLength = breadth
+    constructor(context: Context, rectWidth: Int, rectHeight: Int, color: Int) : super(context) {
+        this.rectWidth = rectWidth
+        this.rectHeight = rectHeight
         this.rectColor = color
         initValues()
     }
@@ -38,9 +38,9 @@ class RectangleView : View, LoaderContract {
     override fun initAttributes(attrs: AttributeSet) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RectangleView, 0, 0)
 
-        this.rectLength = typedArray.getDimension(R.styleable.RectangleView_rectLength,
+        this.rectWidth = typedArray.getDimension(R.styleable.RectangleView_rectWidth,
                 100f).toInt()
-        this.rectBreadth = typedArray.getDimension(R.styleable.RectangleView_rectBreadth,
+        this.rectHeight = typedArray.getDimension(R.styleable.RectangleView_rectHeight,
                 100f).toInt()
         this.rectColor = typedArray.getColor(R.styleable.RectangleView_rectColor,
                 resources.getColor(R.color.grey))
@@ -56,11 +56,11 @@ class RectangleView : View, LoaderContract {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        setMeasuredDimension(rectLength, rectBreadth)
+        setMeasuredDimension(rectWidth, rectHeight)
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawRect(0f, 0f, rectLength.toFloat(), rectBreadth.toFloat(), rectPaint)
+        canvas.drawRect(0f, 0f, rectWidth.toFloat(), rectHeight.toFloat(), rectPaint)
     }
 }

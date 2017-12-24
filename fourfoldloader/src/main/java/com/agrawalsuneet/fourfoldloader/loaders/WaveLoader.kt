@@ -13,33 +13,33 @@ import android.widget.LinearLayout
 import com.agrawalsuneet.fourfoldloader.R
 import com.agrawalsuneet.fourfoldloader.basicviews.LoaderContract
 import com.agrawalsuneet.fourfoldloader.basicviews.RectangleView
+import java.util.*
 
 /**
  * Created by suneet on 12/20/17.
  */
 class WaveLoader : LinearLayout, LoaderContract {
 
+    var noOfRects: Int = 8
+        set(value) {
+            field = if (value < 2) 2 else value
+            invalidate()
+        }
+
     var rectWidth: Int = 50
     var rectHeight: Int = 200
 
     var rectDistance: Int = 20
 
-    var firstRectColor: Int = resources.getColor(R.color.grey)
-
-    var secondRectColor: Int = resources.getColor(R.color.grey)
-
-    var thirdRectColor: Int = resources.getColor(R.color.grey)
+    var rectColorsArray: IntArray = IntArray(noOfRects, { resources.getColor(R.color.grey) })
 
     var animDuration: Int = 500
 
-    var firstDelayDuration: Int = 100
-    var secondDelayDuration: Int = 200
+    var delayDuration: Int = 100
 
     var interpolator: Interpolator = LinearInterpolator()
 
-    private lateinit var firstRect: RectangleView
-    private lateinit var secondRect: RectangleView
-    private lateinit var thirdRect: RectangleView
+    private lateinit var rectArray: ArrayList<RectangleView?>
 
     constructor(context: Context) : super(context) {
         initView()
@@ -62,7 +62,7 @@ class WaveLoader : LinearLayout, LoaderContract {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        val calWidth = (3 * rectWidth) + (2 * rectDistance)
+        val calWidth = (noOfRects * rectWidth) + ((noOfRects - 1) * rectDistance)
         val calHeight = 2 * rectHeight
 
         setMeasuredDimension(calWidth, calHeight)
@@ -72,24 +72,34 @@ class WaveLoader : LinearLayout, LoaderContract {
         removeAllViews()
         removeAllViewsInLayout()
 
-        firstRect = RectangleView(context, rectWidth, rectHeight, firstRectColor)
-        secondRect = RectangleView(context, rectWidth, rectHeight, secondRectColor)
-        thirdRect = RectangleView(context, rectWidth, rectHeight, thirdRectColor)
-
-        val firstRectParams = LinearLayout.LayoutParams(rectWidth, rectHeight)
-        firstRectParams.topMargin = (rectHeight / 2)
-        firstRectParams.bottomMargin = (rectHeight / 2)
-
-        val secondRectParams = LinearLayout.LayoutParams(rectWidth, rectHeight)
-        secondRectParams.topMargin = (rectHeight / 2)
-        secondRectParams.bottomMargin = (rectHeight / 2)
-        secondRectParams.leftMargin = rectDistance
-
         setVerticalGravity(Gravity.CENTER)
 
-        addView(firstRect, firstRectParams)
-        addView(secondRect, secondRectParams)
-        addView(thirdRect, secondRectParams)
+        rectArray = ArrayList(noOfRects)
+
+        for (count in 0 until noOfRects) {
+            val rectangleView = RectangleView(context, rectWidth, rectHeight, rectColorsArray[count])
+
+            var rectLayoutParam: LinearLayout.LayoutParams
+
+            when (count) {
+                0 -> {
+                    rectLayoutParam = LinearLayout.LayoutParams(rectWidth, rectHeight)
+                    rectLayoutParam.topMargin = (rectHeight / 2)
+                    rectLayoutParam.bottomMargin = (rectHeight / 2)
+                }
+
+                else -> {
+                    rectLayoutParam = LinearLayout.LayoutParams(rectWidth, rectHeight)
+                    rectLayoutParam.topMargin = (rectHeight / 2)
+                    rectLayoutParam.bottomMargin = (rectHeight / 2)
+                    rectLayoutParam.leftMargin = rectDistance
+                }
+            }
+
+            this.addView(rectangleView, rectLayoutParam)
+            rectArray.add(rectangleView)
+        }
+
 
         val loaderView = this
 
@@ -105,35 +115,30 @@ class WaveLoader : LinearLayout, LoaderContract {
 
     fun startLoading() {
 
-        val rect1ScaleAnim = getTranslateAnim()
-        firstRect.startAnimation(rect1ScaleAnim)
+        for (count in 0 until noOfRects) {
+            val rectScaleAnim = getTranslateAnim()
 
-        val rect2ScaleAnim = getTranslateAnim()
+            val rectView = rectArray.get(count)
 
-        Handler().postDelayed({
-            secondRect.startAnimation(rect2ScaleAnim)
-        }, firstDelayDuration.toLong())
+            Handler().postDelayed({
+                rectView?.startAnimation(rectScaleAnim)
+            }, (count * delayDuration).toLong())
 
+            if (count == 0) {
+                rectScaleAnim.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationEnd(p0: Animation?) {
+                        startLoading()
+                    }
 
-        val rect3ScaleAnim = getTranslateAnim()
+                    override fun onAnimationRepeat(p0: Animation?) {
+                    }
 
+                    override fun onAnimationStart(p0: Animation?) {
+                    }
 
-        Handler().postDelayed({
-            thirdRect.startAnimation(rect3ScaleAnim)
-        }, secondDelayDuration.toLong())
-
-        rect1ScaleAnim.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationEnd(p0: Animation?) {
-                startLoading()
+                })
             }
-
-            override fun onAnimationRepeat(p0: Animation?) {
-            }
-
-            override fun onAnimationStart(p0: Animation?) {
-            }
-
-        })
+        }
     }
 
     private fun getTranslateAnim(): ScaleAnimation {

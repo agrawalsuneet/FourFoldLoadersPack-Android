@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 
 import com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
+import com.agrawalsuneet.fourfoldloader.loaders.WaveLoader
 import com.agrawalsuneet.fourfoldloader.loaders.ZipZapLoader
 
 class MainActivity : AppCompatActivity() {
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var zipzapXML: ZipZapLoader
     private lateinit var zipzap: ZipZapLoader
 
+    private lateinit var waveLoader: WaveLoader
+
     private var container: LinearLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,12 +29,21 @@ class MainActivity : AppCompatActivity() {
 
         container = findViewById(R.id.container) as LinearLayout
 
+        initWaveLoader()
+
         //initZipZapLoader()
         //initControls();
         //initFourfoldLoader();
-
     }
 
+    private fun initWaveLoader() {
+        waveLoader = findViewById(R.id.waveLoader) as WaveLoader
+    }
+
+    /*override fun onResume() {
+        super.onResume()
+        //waveLoader.resetLoader()
+    }*/
 
     private fun initControls() {
 

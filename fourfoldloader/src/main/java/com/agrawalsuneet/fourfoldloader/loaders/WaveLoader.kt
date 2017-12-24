@@ -37,9 +37,9 @@ class WaveLoader : LinearLayout, LoaderContract {
 
     var interpolator: Interpolator = LinearInterpolator()
 
-    protected lateinit var firstRect: RectangleView
-    protected lateinit var secondRect: RectangleView
-    protected lateinit var thirdRect: RectangleView
+    private lateinit var firstRect: RectangleView
+    private lateinit var secondRect: RectangleView
+    private lateinit var thirdRect: RectangleView
 
     constructor(context: Context) : super(context) {
         initView()
@@ -103,23 +103,37 @@ class WaveLoader : LinearLayout, LoaderContract {
         })
     }
 
-    private fun startLoading() {
+    fun startLoading() {
 
-        val trans1Anim = getTranslateAnim()
-        firstRect.startAnimation(trans1Anim)
+        val rect1ScaleAnim = getTranslateAnim()
+        firstRect.startAnimation(rect1ScaleAnim)
 
-        val trans2Anim = getTranslateAnim()
+        val rect2ScaleAnim = getTranslateAnim()
 
         Handler().postDelayed({
-            secondRect.startAnimation(trans2Anim)
+            secondRect.startAnimation(rect2ScaleAnim)
         }, firstDelayDuration.toLong())
 
 
-        val trans3Anim = getTranslateAnim()
+        val rect3ScaleAnim = getTranslateAnim()
+
 
         Handler().postDelayed({
-            thirdRect.startAnimation(trans3Anim)
+            thirdRect.startAnimation(rect3ScaleAnim)
         }, secondDelayDuration.toLong())
+
+        rect1ScaleAnim.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationEnd(p0: Animation?) {
+                startLoading()
+            }
+
+            override fun onAnimationRepeat(p0: Animation?) {
+            }
+
+            override fun onAnimationStart(p0: Animation?) {
+            }
+
+        })
     }
 
     private fun getTranslateAnim(): ScaleAnimation {
@@ -127,7 +141,7 @@ class WaveLoader : LinearLayout, LoaderContract {
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
         transAnim.duration = animDuration.toLong()
         transAnim.fillAfter = true
-        transAnim.repeatCount = Animation.INFINITE
+        transAnim.repeatCount = 1
         transAnim.repeatMode = Animation.REVERSE
         transAnim.interpolator = interpolator
 

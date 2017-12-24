@@ -5,10 +5,7 @@ import android.os.Handler
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.ViewTreeObserver
-import android.view.animation.Animation
-import android.view.animation.Interpolator
-import android.view.animation.LinearInterpolator
-import android.view.animation.ScaleAnimation
+import android.view.animation.*
 import android.widget.LinearLayout
 import com.agrawalsuneet.fourfoldloader.R
 import com.agrawalsuneet.fourfoldloader.basicviews.LoaderContract
@@ -31,15 +28,16 @@ class WaveLoader : LinearLayout, LoaderContract {
 
     var rectDistance: Int = 20
 
+    var isSingleColor: Boolean = true
+    var rectColor: Int = resources.getColor(R.color.grey)
     var rectColorsArray: IntArray = IntArray(noOfRects, { resources.getColor(R.color.grey) })
 
     var animDuration: Int = 500
-
     var delayDuration: Int = 100
 
     var interpolator: Interpolator = LinearInterpolator()
 
-    private lateinit var rectArray: ArrayList<RectangleView?>
+    private lateinit var rectsArrayList: ArrayList<RectangleView?>
 
     constructor(context: Context) : super(context) {
         initView()
@@ -56,7 +54,32 @@ class WaveLoader : LinearLayout, LoaderContract {
     }
 
     override fun initAttributes(attrs: AttributeSet) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.WaveLoader, 0, 0)
 
+        noOfRects = typedArray.getInteger(R.styleable.WaveLoader_wave_noOfDots, 3)
+
+        rectWidth = typedArray.getDimensionPixelSize(R.styleable.WaveLoader_wave_rectWidth, 50)
+        rectHeight = typedArray.getDimensionPixelSize(R.styleable.WaveLoader_wave_rectHeight, 200)
+
+        rectDistance = typedArray.getDimensionPixelSize(R.styleable.WaveLoader_wave_rectDistance, 20)
+
+        isSingleColor = typedArray.getBoolean(R.styleable.WaveLoader_wave_isSingleColor, true)
+
+        rectColor = typedArray.getColor(R.styleable.WaveLoader_wave_rectColor, resources.getColor(R.color.grey))
+
+        val colorsArrayId = typedArray.getResourceId(R.styleable.WaveLoader_wave_rectColorsArray, 0)
+        if (0 != colorsArrayId) {
+            rectColorsArray = resources.getIntArray(colorsArrayId)
+        }
+
+        animDuration = typedArray.getInteger(R.styleable.WaveLoader_wave_animDuration, 500)
+        delayDuration = typedArray.getInteger(R.styleable.WaveLoader_wave_delayDuration, 100)
+
+        interpolator = AnimationUtils.loadInterpolator(context,
+                typedArray.getResourceId(R.styleable.WaveLoader_wave_interpolator,
+                        android.R.anim.linear_interpolator))
+
+        typedArray.recycle()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -74,32 +97,23 @@ class WaveLoader : LinearLayout, LoaderContract {
 
         setVerticalGravity(Gravity.CENTER)
 
-        rectArray = ArrayList(noOfRects)
+        rectsArrayList = ArrayList(noOfRects)
 
         for (count in 0 until noOfRects) {
-            val rectangleView = RectangleView(context, rectWidth, rectHeight, rectColorsArray[count])
+            val rectangleView = RectangleView(context, rectWidth, rectHeight,
+                    if (isSingleColor) rectColor else rectColorsArray[count])
 
-            var rectLayoutParam: LinearLayout.LayoutParams
+            var rectLayoutParam = LinearLayout.LayoutParams(rectWidth, rectHeight)
+            rectLayoutParam.topMargin = (rectHeight / 2)
+            rectLayoutParam.bottomMargin = (rectHeight / 2)
 
-            when (count) {
-                0 -> {
-                    rectLayoutParam = LinearLayout.LayoutParams(rectWidth, rectHeight)
-                    rectLayoutParam.topMargin = (rectHeight / 2)
-                    rectLayoutParam.bottomMargin = (rectHeight / 2)
-                }
-
-                else -> {
-                    rectLayoutParam = LinearLayout.LayoutParams(rectWidth, rectHeight)
-                    rectLayoutParam.topMargin = (rectHeight / 2)
-                    rectLayoutParam.bottomMargin = (rectHeight / 2)
-                    rectLayoutParam.leftMargin = rectDistance
-                }
+            if (count > 0) {
+                rectLayoutParam.leftMargin = rectDistance
             }
 
             this.addView(rectangleView, rectLayoutParam)
-            rectArray.add(rectangleView)
+            rectsArrayList.add(rectangleView)
         }
-
 
         val loaderView = this
 
@@ -113,12 +127,12 @@ class WaveLoader : LinearLayout, LoaderContract {
         })
     }
 
-    fun startLoading() {
+    private fun startLoading() {
 
         for (count in 0 until noOfRects) {
             val rectScaleAnim = getTranslateAnim()
 
-            val rectView = rectArray.get(count)
+            val rectView = rectsArrayList.get(count)
 
             Handler().postDelayed({
                 rectView?.startAnimation(rectScaleAnim)

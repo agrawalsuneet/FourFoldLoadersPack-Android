@@ -3,13 +3,11 @@ package com.agrawalsuneet.fourfold
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.LinearLayout
-
-import com.agrawalsuneet.fourfold.dialog.FourFoldDialog
 import com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
+import com.agrawalsuneet.fourfoldloader.loaders.WaveLoader
 import com.agrawalsuneet.fourfoldloader.loaders.ZipZapLoader
 
 class MainActivity : AppCompatActivity() {
@@ -21,26 +19,40 @@ class MainActivity : AppCompatActivity() {
     private lateinit var zipzapXML: ZipZapLoader
     private lateinit var zipzap: ZipZapLoader
 
-    private var container: LinearLayout? = null
+    private lateinit var container: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_2)
 
         container = findViewById(R.id.container) as LinearLayout
 
-        //initZipZapLoader()
-        initControls();
-        initFourfoldLoader();
+        //initWaveLoader()
 
+        //initZipZapLoader()
+        //initControls();
+        //initFourfoldLoader();
     }
 
+    private fun initWaveLoader() {
+        val waveLoader = WaveLoader(this, 8, 40,
+                200, 20, ContextCompat.getColor(baseContext, R.color.blue))
+                .apply {
+                    /*isSingleColor = false
+                    rectColorsArray = resources.getIntArray(R.array.waveloader_colorsarray)*/
+                    interpolator = LinearInterpolator()
+                    animDuration = 1000
+                    delayDuration = 100
+                }
+
+        container.addView(waveLoader)
+    }
 
     private fun initControls() {
 
         button = findViewById(R.id.button) as Button
 
-        button!!.setOnClickListener {
+        button.setOnClickListener {
             /*if (zipzap!!.isLoading) {
                 zipzap!!.stopLoading()
             } else {
@@ -53,16 +65,16 @@ class MainActivity : AppCompatActivity() {
                 zipzapXML!!.startLoading()
             }*/
 
-            if (fourFoldLoaderXML!!.isLoading) {
-                fourFoldLoaderXML!!.stopLoading()
+            if (fourFoldLoaderXML.isLoading) {
+                fourFoldLoaderXML.stopLoading()
             } else {
-                fourFoldLoaderXML!!.startLoading()
+                fourFoldLoaderXML.startLoading()
             }
 
-            if (fourfoldLoader!!.isLoading) {
-                fourfoldLoader!!.stopLoading()
+            if (fourfoldLoader.isLoading) {
+                fourfoldLoader.stopLoading()
             } else {
-                fourfoldLoader!!.startLoading()
+                fourfoldLoader.startLoading()
             }
 
         }
@@ -89,49 +101,15 @@ class MainActivity : AppCompatActivity() {
         fourFoldLoaderXML = findViewById(R.id.main_fourfoldloader) as FourFoldLoader
 
         fourfoldLoader = FourFoldLoader(this, 200,
-                resources.getColor(R.color.green),
-                resources.getColor(R.color.red),
-                resources.getColor(R.color.blue),
-                resources.getColor(R.color.colorAccent), true)
+                ContextCompat.getColor(baseContext, R.color.green),
+                ContextCompat.getColor(baseContext, R.color.red),
+                ContextCompat.getColor(baseContext, R.color.blue),
+                ContextCompat.getColor(baseContext, R.color.colorAccent), true)
                 .apply {
                     animationDuration = 200
                     disappearAnimationDuration = 100
                 }
 
-        container!!.addView(fourfoldLoader)
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.show_dialog -> {
-                showAlertDialog()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun showAlertDialog() {
-        val dotsDialog = FourFoldDialog.Builder(this)
-                .setTextColor(R.color.white)
-                .setMessage("Loading...")
-                .setTextSize(24f)
-                .setFirstSquareColor(ContextCompat.getColor(this, R.color.white))
-                .setSecondSquareColor(ContextCompat.getColor(this, R.color.white))
-                .setThirdSquareColor(ContextCompat.getColor(this, R.color.white))
-                .setForthSquareColor(ContextCompat.getColor(this, R.color.white))
-                .setAnimDuration(800)
-                .setFadeAnimDuration(200)
-                .create()
-
-        //dotsDialog.setCancelable(false);
-        dotsDialog.show(supportFragmentManager, "dotsDialog")
+        container.addView(fourfoldLoader)
     }
 }

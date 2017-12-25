@@ -1,7 +1,7 @@
 # FourFold Loader
 > Android FourFoldLoader            [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=5961de4056635b00014ecda7&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/5961de4056635b00014ecda7/build/latest?branch=master)
 
-> A replacement of default android material progressbar with fourfold fourfoldLoader
+> A replacement of default android material progressbar with various Squares and Rectangles Loaders
 
 
 ### FourFoldLoader
@@ -10,6 +10,10 @@
 
 
 ### ZipZapLoader
+
+
+
+### WaveLoader
 ![zipzaploader](https://user-images.githubusercontent.com/12999622/32248451-a304a664-be7d-11e7-8c3e-d149c09da599.gif)
 
 Other loaders: [LinearDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [CircularDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [LazyLoader](https://github.com/agrawalsuneet/DotsLoader), [TashieLoader](https://github.com/agrawalsuneet/DotsLoader), [ClockLoader](https://github.com/agrawalsuneet/LoadersPack)
@@ -17,7 +21,7 @@ Other loaders: [LinearDotsLoader](https://github.com/agrawalsuneet/DotsLoader), 
 ## How To use
 include below dependency in build.gradle of application and compile it
 ```
-compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.2'
+compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.3'
 ```
 
 ### FourFoldLoader
@@ -101,19 +105,6 @@ view.setOnClickListener(new View.OnClickListener() {
         });
 
 ```
-
-### Constructors 
-1. `public FourFoldLoader(Context context)`
-   default Constructor for any view
-
-2. `public FourFoldLoader(Context context, int squareLenght, int firstSquareColor,
-                          int secondSquareColor, int thirdSquareColor,
-                          int forthSquareColor, boolean startLoadingDefault)`
-   can set sqaureLength, all square colors with above constructors.
-   
-   remaining properties like animationDuration, fadeAnimationDuration,
-   overridePadding can be set through setters.
-   Interpolator can also be set using setter for animation
    
 
 ### ZipZapLoader
@@ -147,7 +138,7 @@ view.setOnClickListener(new View.OnClickListener() {
             animationDuration = 1000
         }
 
-        container!!.addView(zipzap)
+        container.addView(zipzap)
 ```
 
 * Java
@@ -163,6 +154,68 @@ view.setOnClickListener(new View.OnClickListener() {
         zipZapLoader.setToScale(0.8f);
 
         container.addView(zipZapLoader);
+```
+
+
+### WaveLoader
+##### Through XML
+```
+<com.agrawalsuneet.fourfoldloader.loaders.WaveLoader
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:wave_animDuration="500"
+        app:wave_delayDuration="100"
+        app:wave_interpolator="@android:anim/linear_interpolator"
+        app:wave_isSingleColor="true"
+        app:wave_noOfDots="10"
+        app:wave_rectColor="@color/blue"
+        app:wave_rectDistance="8dp"
+        app:wave_rectHeight="80dp"
+        app:wave_rectWidth="16dp" />
+
+
+    <com.agrawalsuneet.fourfoldloader.loaders.WaveLoader
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:wave_animDuration="500"
+        app:wave_delayDuration="100"
+        app:wave_interpolator="@android:anim/linear_interpolator"
+        app:wave_isSingleColor="false"
+        app:wave_noOfDots="4"
+        app:wave_rectColorsArray="@array/waveloader_colorsarray"
+        app:wave_rectDistance="8dp"
+        app:wave_rectHeight="80dp"
+        app:wave_rectWidth="16dp" />
+```
+##### Through Code
+* Kotlin
+```
+         val waveLoader = WaveLoader(this, 8, 40,
+                        200, 20, ContextCompat.getColor(baseContext, R.color.blue))
+                        .apply {
+                            //isSingleColor = false
+                            //rectColorsArray = resources.getIntArray(R.array.waveloader_colorsarray)
+                            interpolator = LinearInterpolator()
+                            animDuration = 1000
+                            delayDuration = 100
+                        }
+        
+                container.addView(waveLoader)
+```
+
+* Java
+```
+WaveLoader waveLoader = new WaveLoader(this, 8, 40,
+                   200, 20, ContextCompat.getColor(getBaseContext(), R.color.blue));
+   
+           //waveLoader.setSingleColor(false);
+           //waveLoader.setRectColorsArray(getResources().getIntArray(R.array.waveloader_colorsarray));
+           waveLoader.setInterpolator(new LinearInterpolator());
+           waveLoader.setAnimDuration(1000);
+           waveLoader.setDelayDuration(100);
+   
+   
+           container.addView(waveLoader);
 ```
   
   

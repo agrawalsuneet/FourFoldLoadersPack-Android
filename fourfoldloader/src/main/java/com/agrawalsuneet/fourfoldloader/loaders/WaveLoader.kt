@@ -29,8 +29,13 @@ class WaveLoader : LinearLayout, LoaderContract {
     var rectDistance: Int = 20
 
     var isSingleColor: Boolean = true
+
     var rectColor: Int = resources.getColor(R.color.grey)
     var rectColorsArray: IntArray = IntArray(noOfRects, { resources.getColor(R.color.grey) })
+        set(value) {
+            field = value
+            initView()
+        }
 
     var animDuration: Int = 500
     var delayDuration: Int = 100
@@ -38,6 +43,17 @@ class WaveLoader : LinearLayout, LoaderContract {
     var interpolator: Interpolator = LinearInterpolator()
 
     private lateinit var rectsArrayList: ArrayList<RectangleView?>
+
+    constructor(context: Context, noOfRects: Int,
+                rectWidth: Int, rectHeight: Int, rectDistance: Int,
+                rectColor: Int) : super(context) {
+        this.noOfRects = noOfRects
+        this.rectWidth = rectWidth
+        this.rectHeight = rectHeight
+        this.rectDistance = rectDistance
+        this.rectColor = rectColor
+        initView()
+    }
 
     constructor(context: Context) : super(context) {
         initView()
@@ -100,8 +116,10 @@ class WaveLoader : LinearLayout, LoaderContract {
         rectsArrayList = ArrayList(noOfRects)
 
         for (count in 0 until noOfRects) {
-            val rectangleView = RectangleView(context, rectWidth, rectHeight,
-                    if (isSingleColor) rectColor else rectColorsArray[count])
+            val color = if (!isSingleColor && count < rectColorsArray.size && null != rectColorsArray.get(count))
+                rectColorsArray[count] else rectColor
+
+            val rectangleView = RectangleView(context, rectWidth, rectHeight, color)
 
             var rectLayoutParam = LinearLayout.LayoutParams(rectWidth, rectHeight)
             rectLayoutParam.topMargin = (rectHeight / 2)

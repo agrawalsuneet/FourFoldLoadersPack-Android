@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <!--<com.agrawalsuneet.fourfoldloader.loaders.WaveLoader
+    <com.agrawalsuneet.fourfoldloader.loaders.WaveLoader
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:wave_animDuration="500"
@@ -33,6 +33,6 @@
         app:wave_rectColorsArray="@array/waveloader_colorsarray"
         app:wave_rectDistance="8dp"
         app:wave_rectHeight="80dp"
-        app:wave_rectWidth="16dp" />-->
+        app:wave_rectWidth="16dp" />
 
 </LinearLayout>

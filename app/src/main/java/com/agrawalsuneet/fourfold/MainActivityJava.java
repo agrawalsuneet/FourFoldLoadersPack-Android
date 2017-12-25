@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.animation.LinearInterpolator;
 
 import com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader;
+import com.agrawalsuneet.fourfoldloader.loaders.WaveLoader;
 import com.agrawalsuneet.fourfoldloader.loaders.ZipZapLoader;
 
 /**
@@ -40,5 +42,18 @@ public class MainActivityJava extends AppCompatActivity {
         zipZapLoader.setAnimationDuration(500);
         zipZapLoader.setFromScale(1.0f);
         zipZapLoader.setToScale(0.8f);
+
+
+        WaveLoader waveLoader = new WaveLoader(this, 8, 40,
+                200, 20, ContextCompat.getColor(getBaseContext(), R.color.blue));
+
+        waveLoader.setSingleColor(false);
+        waveLoader.setRectColorsArray(getResources().getIntArray(R.array.waveloader_colorsarray));
+        waveLoader.setInterpolator(new LinearInterpolator());
+        waveLoader.setAnimDuration(1000);
+        waveLoader.setDelayDuration(100);
+
+
+        //container.addView(waveLoader);
     }
 }

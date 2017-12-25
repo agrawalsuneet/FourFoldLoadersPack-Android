@@ -17,7 +17,7 @@ import java.util.*
  */
 class WaveLoader : LinearLayout, LoaderContract {
 
-    var noOfRects: Int = 8
+    var noOfRects: Int = 3
         set(value) {
             field = if (value < 2) 2 else value
             invalidate()

@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initWaveLoader() {
-        waveLoader = findViewById(R.id.waveLoader) as WaveLoader
+
     }
 
     /*override fun onResume() {
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
         button = findViewById(R.id.button) as Button
 
-        button!!.setOnClickListener {
+        button.setOnClickListener {
             /*if (zipzap!!.isLoading) {
                 zipzap!!.stopLoading()
             } else {
@@ -62,16 +62,16 @@ class MainActivity : AppCompatActivity() {
                 zipzapXML!!.startLoading()
             }*/
 
-            if (fourFoldLoaderXML!!.isLoading) {
-                fourFoldLoaderXML!!.stopLoading()
+            if (fourFoldLoaderXML.isLoading) {
+                fourFoldLoaderXML.stopLoading()
             } else {
-                fourFoldLoaderXML!!.startLoading()
+                fourFoldLoaderXML.startLoading()
             }
 
-            if (fourfoldLoader!!.isLoading) {
-                fourfoldLoader!!.stopLoading()
+            if (fourfoldLoader.isLoading) {
+                fourfoldLoader.stopLoading()
             } else {
-                fourfoldLoader!!.startLoading()
+                fourfoldLoader.startLoading()
             }
 
         }

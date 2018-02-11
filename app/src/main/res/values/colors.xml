@@ -17,6 +17,5 @@
         <item>@color/yellow</item>
         <item>@color/green</item>
         <item>@color/grey</item>
-
     </integer-array>
 </resources>

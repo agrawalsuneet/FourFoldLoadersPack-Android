@@ -74,8 +74,9 @@ class FourFoldLoader : FourSquaresBaseLayout, Animator.AnimatorListener {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
         if (!overridePadding) {
-            setPadding(squareLenght / 2, squareLenght / 2,
-                    squareLenght / 2, squareLenght / 2)
+            val padding = (squareLenght * 0.8f).toInt()
+            setPadding(padding, padding,
+                    padding, padding)
         }
 
         setMeasuredDimension(2 * squareLenght + paddingLeft + paddingRight,

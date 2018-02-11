@@ -21,13 +21,15 @@ class MainActivity : AppCompatActivity() {
 
         container = findViewById(R.id.container) as LinearLayout
 
+        supportActionBar!!.title = "FourFoldLoader"
+
         //initControls();
         //initFourfoldLoader();
     }
 
     private fun initControls() {
 
-        button = findViewById(R.id.button) as Button
+        /*button = findViewById(R.id.button) as Button
 
         button.setOnClickListener {
             if (fourFoldLoaderXML.isLoading) {
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 fourfoldLoader.startLoading()
             }
 
-        }
+        }*/
     }
 
     private fun initFourfoldLoader() {

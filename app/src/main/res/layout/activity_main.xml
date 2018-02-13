@@ -7,19 +7,19 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <!--<com.agrawalsuneet.fourfoldloader.loaders.ZipZapLoader
-        android:id="@+id/zipzap"
+    <com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:loader_animDuration="200"
-        app:loader_firstSquareColor="@color/blue"
-        app:loader_forthSquareColor="@color/blue"
-        app:loader_secondSquareColor="@color/blue"
-        app:loader_squareLength="40dp"
-        app:loader_startLoadingDefault="false"
-        app:loader_thirdSquareColor="@color/blue"
-        app:zipzap_fromScale="0.9"
-        app:zipzap_toScale="0.7" />-->
+        android:layout_centerVertical="true"
+        android:layout_margin="16dp"
+        app:fourfold_disappearAnimDuration="100"
+        app:fourfold_animDuration="700"
+        app:fourfold_firstSquareColor="@color/red"
+        app:fourfold_forthSquareColor="@color/grey"
+        app:fourfold_secondSquareColor="@color/green"
+        app:fourfold_squareLength="50dp"
+        app:fourfold_startLoadingDefault="true"
+        app:fourfold_thirdSquareColor="@color/blue" />
 
     <com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
         android:id="@+id/main_fourfoldloader"
@@ -27,22 +27,22 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         app:fourfold_disappearAnimDuration="100"
-        app:loader_animDuration="500"
-        app:loader_firstSquareColor="@color/pink"
-        app:loader_forthSquareColor="@color/indigo"
-        app:loader_secondSquareColor="@color/blue"
-        app:loader_squareLength="60dp"
-        app:loader_startLoadingDefault="true"
-        app:loader_thirdSquareColor="@color/purple" />
+        app:fourfold_animDuration="1000"
+        app:fourfold_firstSquareColor="@color/pink"
+        app:fourfold_forthSquareColor="@color/indigo"
+        app:fourfold_secondSquareColor="@color/blue"
+        app:fourfold_squareLength="80dp"
+        app:fourfold_startLoadingDefault="true"
+        app:fourfold_thirdSquareColor="@color/purple" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/fourfoldloader"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/fourfoldloader"
-        android:layout_margin="16dp"
-        android:text="Animate" />
+    <!--<Button-->
+    <!--android:id="@+id/button"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignEnd="@+id/fourfoldloader"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignStart="@+id/fourfoldloader"-->
+    <!--android:layout_margin="16dp"-->
+    <!--android:text="Animate" />-->
 
 </LinearLayout>

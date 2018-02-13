@@ -71,25 +71,25 @@ abstract class FourSquaresBaseLayout : LinearLayout, LoaderContract {
 
     override fun initAttributes(attrs: AttributeSet) {
 
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.FourSquaresBaseLayout, 0, 0)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.FourFoldLoader, 0, 0)
 
-        squareLenght = typedArray.getDimensionPixelSize(R.styleable.FourSquaresBaseLayout_loader_squareLength, 100)
+        squareLenght = typedArray.getDimensionPixelSize(R.styleable.FourFoldLoader_fourfold_squareLength, 100)
 
-        firstSquareColor = typedArray.getColor(R.styleable.FourSquaresBaseLayout_loader_firstSquareColor,
+        firstSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_fourfold_firstSquareColor,
                 resources.getColor(R.color.red))
 
-        secondSquareColor = typedArray.getColor(R.styleable.FourSquaresBaseLayout_loader_secondSquareColor,
+        secondSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_fourfold_secondSquareColor,
                 resources.getColor(R.color.green))
 
-        thirdSquareColor = typedArray.getColor(R.styleable.FourSquaresBaseLayout_loader_thirdSquareColor,
+        thirdSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_fourfold_thirdSquareColor,
                 resources.getColor(R.color.blue))
 
-        forthSquareColor = typedArray.getColor(R.styleable.FourSquaresBaseLayout_loader_forthSquareColor,
+        forthSquareColor = typedArray.getColor(R.styleable.FourFoldLoader_fourfold_forthSquareColor,
                 resources.getColor(R.color.grey))
 
-        animationDuration = typedArray.getInteger(R.styleable.FourSquaresBaseLayout_loader_animDuration, 500)
+        animationDuration = typedArray.getInteger(R.styleable.FourFoldLoader_fourfold_animDuration, 500)
 
-        startLoadingDefault = typedArray.getBoolean(R.styleable.FourSquaresBaseLayout_loader_startLoadingDefault, false)
+        startLoadingDefault = typedArray.getBoolean(R.styleable.FourFoldLoader_fourfold_startLoadingDefault, false)
 
         typedArray.recycle()
     }

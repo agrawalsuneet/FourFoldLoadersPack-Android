@@ -5,17 +5,15 @@
 
 
 ### FourFoldLoader
-![fourfoldloader](https://user-images.githubusercontent.com/12999622/26966423-9f680546-4d17-11e7-86db-f59b914a155f.gif)
-![fourfoldloaderdialog](https://user-images.githubusercontent.com/12999622/26966424-9f7a9846-4d17-11e7-89fd-323293d36c08.gif)
+![fourfoldloader](https://user-images.githubusercontent.com/12999622/36169830-4af85c3e-10f5-11e8-8bfd-f36ab3122972.gif)
 
-please check a better quality demo [here](https://youtu.be/v0rr80_kAtw)
 
-Other loaders: [SVGLoader](https://github.com/agrawalsuneet/SVGLoadersPack-Android), [ClockLoader](https://github.com/agrawalsuneet/LoadersPack), [RippleLoader](https://github.com/agrawalsuneet/LoadersPack), [RotatingCircularSticksLoader](https://github.com/agrawalsuneet/LoadersPack),  [LinearDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [CircularDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [LazyLoader](https://github.com/agrawalsuneet/DotsLoader), [TashieLoader](https://github.com/agrawalsuneet/DotsLoader), [SlidingLoader](https://github.com/agrawalsuneet/DotsLoader), [RotatingCircularDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [ZipZapLoader](https://github.com/agrawalsuneet/SquareLoadersPack-Android), [WaveLoader](https://github.com/agrawalsuneet/SquareLoadersPack-Android)
+Other loaders: [SVGLoader](https://github.com/agrawalsuneet/SVGLoadersPack-Android), [ClockLoader](https://github.com/agrawalsuneet/LoadersPack), [RippleLoader](https://github.com/agrawalsuneet/LoadersPack), [RotatingCircularSticksLoader](https://github.com/agrawalsuneet/LoadersPack), [CircularSticksLoader](https://github.com/agrawalsuneet/LoadersPack),  [LinearDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [CircularDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [LazyLoader](https://github.com/agrawalsuneet/DotsLoader), [TashieLoader](https://github.com/agrawalsuneet/DotsLoader), [SlidingLoader](https://github.com/agrawalsuneet/DotsLoader), [RotatingCircularDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [ZipZapLoader](https://github.com/agrawalsuneet/SquareLoadersPack-Android), [WaveLoader](https://github.com/agrawalsuneet/SquareLoadersPack-Android), [MusicPlayerLoader](https://github.com/agrawalsuneet/SquareLoadersPack-Android), [RotatingSquareLoader](https://github.com/agrawalsuneet/SquareLoadersPack-Android)
 
 ## How To use
 include below dependency in build.gradle of application and compile it
 ```
-compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.3'
+compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.4'
 ```
 
 ### FourFoldLoader
@@ -27,13 +25,13 @@ compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.3'
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         app:fourfold_disappearAnimDuration="100"
-        app:loader_animDuration="500"
-        app:loader_firstSquareColor="@color/pink"
-        app:loader_forthSquareColor="@color/indigo"
-        app:loader_secondSquareColor="@color/blue"
-        app:loader_squareLength="60dp"
-        app:loader_startLoadingDefault="true"
-        app:loader_thirdSquareColor="@color/purple" />
+        app:fourfold_animDuration="500"
+        app:fourfold_firstSquareColor="@color/pink"
+        app:fourfold_forthSquareColor="@color/indigo"
+        app:fourfold_secondSquareColor="@color/blue"
+        app:fourfold_squareLength="60dp"
+        app:fourfold_startLoadingDefault="true"
+        app:fourfold_thirdSquareColor="@color/purple" />
 ```
 ##### Through Code
 * Kotlin
@@ -78,7 +76,7 @@ compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.3'
    duration to disappear the flap once folded.
 5. `overridePadding (boolean)(defaultValue = false)`
    in order to show proper overlay while flapping, 
-   a minimum padding of half of square length is added on all the sides of Loader, 
+   a minimum padding of 0.8 times of square length is added on all the sides of Loader, 
    if you want to override the padding, 
    please set this attribute as true and set the required padding.
 6. `startLoadingDefault (boolean) (defaultValue = false)`

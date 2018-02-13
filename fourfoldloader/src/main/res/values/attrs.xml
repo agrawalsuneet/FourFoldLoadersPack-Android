@@ -6,53 +6,20 @@
         <attr name="squareColor" format="color" />
     </declare-styleable>
 
-    <declare-styleable name="RectangleView">
-        <attr name="rectWidth" format="dimension" />
-        <attr name="rectHeight" format="dimension" />
-        <attr name="rectColor" format="color" />
-    </declare-styleable>
-
-    <declare-styleable name="FourSquaresBaseLayout">
-        <attr name="loader_squareColor" format="color" />
-        <attr name="loader_squareLength" format="dimension" />
-        <attr name="loader_firstSquareColor" format="color" />
-        <attr name="loader_secondSquareColor" format="color" />
-        <attr name="loader_thirdSquareColor" format="color" />
-        <attr name="loader_forthSquareColor" format="color" />
-        <attr name="loader_animDuration" format="integer" />
-        <attr name="loader_startLoadingDefault" format="boolean" />
-    </declare-styleable>
-
     <declare-styleable name="FourFoldLoader">
+        <attr name="fourfold_squareLength" format="dimension" />
+        <attr name="fourfold_firstSquareColor" format="color" />
+        <attr name="fourfold_secondSquareColor" format="color" />
+        <attr name="fourfold_thirdSquareColor" format="color" />
+        <attr name="fourfold_forthSquareColor" format="color" />
+        <attr name="fourfold_animDuration" format="integer" />
+        <attr name="fourfold_startLoadingDefault" format="boolean" />
         <attr name="fourfold_disappearAnimDuration" format="integer" />
         <attr name="fourfold_overridePadding" format="boolean" />
-    </declare-styleable>
-
-    <declare-styleable name="ZipZapLoader">
-        <attr name="zipzap_fromScale" format="float" />
-        <attr name="zipzap_toScale" format="float" />
     </declare-styleable>
 
     <item name="fourfold_from_alpha" format="float" type="dimen">1.0</item>
     <item name="fourfold_to_alpha" format="float" type="dimen">0.5</item>
 
-    <item name="zipzap_from_scale" format="float" type="dimen">1.0</item>
-    <item name="zipzap_to_scale" format="float" type="dimen">0.75</item>
-
-
-    <declare-styleable name="WaveLoader">
-        <attr name="wave_noOfDots" format="integer" />
-        <attr name="wave_rectWidth" format="dimension" />
-        <attr name="wave_rectHeight" format="dimension" />
-        <attr name="wave_rectDistance" format="dimension" />
-
-        <attr name="wave_isSingleColor" format="boolean" />
-        <attr name="wave_rectColor" format="color" />
-        <attr name="wave_rectColorsArray" format="reference" />
-
-        <attr name="wave_animDuration" format="integer" />
-        <attr name="wave_delayDuration" format="integer" />
-        <attr name="wave_interpolator" format="reference" />
-    </declare-styleable>
 
 </resources>

@@ -1,8 +1,6 @@
 # FourFold Loader
 > Android FourFoldLoader            [![BuddyBuild](https://dashboard.buddybuild.com/api/statusImage?appID=5961de4056635b00014ecda7&branch=master&build=latest)](https://dashboard.buddybuild.com/apps/5961de4056635b00014ecda7/build/latest?branch=master)
 
-> A replacement of default android material progressbar with various Squares and Rectangles Loaders
-
 
 ### FourFoldLoader
 ![fourfoldloader](https://user-images.githubusercontent.com/12999622/36169830-4af85c3e-10f5-11e8-8bfd-f36ab3122972.gif)

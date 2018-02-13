@@ -25,13 +25,13 @@ compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.4'
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         app:fourfold_disappearAnimDuration="100"
-        app:loader_animDuration="500"
-        app:loader_firstSquareColor="@color/pink"
-        app:loader_forthSquareColor="@color/indigo"
-        app:loader_secondSquareColor="@color/blue"
-        app:loader_squareLength="60dp"
-        app:loader_startLoadingDefault="true"
-        app:loader_thirdSquareColor="@color/purple" />
+        app:fourfold_animDuration="500"
+        app:fourfold_firstSquareColor="@color/pink"
+        app:fourfold_forthSquareColor="@color/indigo"
+        app:fourfold_secondSquareColor="@color/blue"
+        app:fourfold_squareLength="60dp"
+        app:fourfold_startLoadingDefault="true"
+        app:fourfold_thirdSquareColor="@color/purple" />
 ```
 ##### Through Code
 * Kotlin
@@ -76,7 +76,7 @@ compile 'com.agrawalsuneet.androidlibs:fourfoldloader:0.4'
    duration to disappear the flap once folded.
 5. `overridePadding (boolean)(defaultValue = false)`
    in order to show proper overlay while flapping, 
-   a minimum padding of half of square length is added on all the sides of Loader, 
+   a minimum padding of 0.8 times of square length is added on all the sides of Loader, 
    if you want to override the padding, 
    please set this attribute as true and set the required padding.
 6. `startLoadingDefault (boolean) (defaultValue = false)`

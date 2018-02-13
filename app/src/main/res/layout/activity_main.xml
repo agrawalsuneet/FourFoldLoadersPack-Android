@@ -7,19 +7,19 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <!--<com.agrawalsuneet.fourfoldloader.loaders.ZipZapLoader
-        android:id="@+id/zipzap"
+    <com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:loader_animDuration="200"
-        app:loader_firstSquareColor="@color/blue"
-        app:loader_forthSquareColor="@color/blue"
-        app:loader_secondSquareColor="@color/blue"
-        app:loader_squareLength="40dp"
-        app:loader_startLoadingDefault="false"
-        app:loader_thirdSquareColor="@color/blue"
-        app:zipzap_fromScale="0.9"
-        app:zipzap_toScale="0.7" />-->
+        android:layout_centerVertical="true"
+        android:layout_margin="16dp"
+        app:fourfold_disappearAnimDuration="100"
+        app:loader_animDuration="700"
+        app:loader_firstSquareColor="@color/red"
+        app:loader_forthSquareColor="@color/grey"
+        app:loader_secondSquareColor="@color/green"
+        app:loader_squareLength="50dp"
+        app:loader_startLoadingDefault="true"
+        app:loader_thirdSquareColor="@color/blue" />
 
     <com.agrawalsuneet.fourfoldloader.loaders.FourFoldLoader
         android:id="@+id/main_fourfoldloader"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         app:fourfold_disappearAnimDuration="100"
-        app:loader_animDuration="5000"
+        app:loader_animDuration="1000"
         app:loader_firstSquareColor="@color/pink"
         app:loader_forthSquareColor="@color/indigo"
         app:loader_secondSquareColor="@color/blue"
@@ -36,13 +36,13 @@
         app:loader_thirdSquareColor="@color/purple" />
 
     <!--<Button-->
-        <!--android:id="@+id/button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignEnd="@+id/fourfoldloader"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignStart="@+id/fourfoldloader"-->
-        <!--android:layout_margin="16dp"-->
-        <!--android:text="Animate" />-->
+    <!--android:id="@+id/button"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignEnd="@+id/fourfoldloader"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignStart="@+id/fourfoldloader"-->
+    <!--android:layout_margin="16dp"-->
+    <!--android:text="Animate" />-->
 
 </LinearLayout>

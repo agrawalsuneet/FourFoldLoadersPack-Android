@@ -6,7 +6,7 @@
 ![fourfoldloader](https://user-images.githubusercontent.com/12999622/36169830-4af85c3e-10f5-11e8-8bfd-f36ab3122972.gif)
 
 
-Other loaders: [SVGLoader](https://github.com/agrawalsuneet/SVGLoadersPack-Android), [ClockLoader](https://github.com/agrawalsuneet/LoadersPack), [RippleLoader](https://github.com/agrawalsuneet/LoadersPack), [RotatingCircularSticksLoader](https://github.com/agrawalsuneet/LoadersPack), [CircularSticksLoader](https://github.com/agrawalsuneet/LoadersPack),  [LinearDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [CircularDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [LazyLoader](https://github.com/agrawalsuneet/DotsLoader), [TashieLoader](https://github.com/agrawalsuneet/DotsLoader), [SlidingLoader](https://github.com/agrawalsuneet/DotsLoader), [RotatingCircularDotsLoader](https://github.com/agrawalsuneet/DotsLoader), [ZipZapLoader](https://github.com/agrawalsuneet/SquareLoadersPack-Android), [WaveLoader](https://github.com/agrawalsuneet/SquareLoadersPack-Android), [MusicPlayerLoader](https://github.com/agrawalsuneet/SquareLoadersPack-Android), [RotatingSquareLoader](https://github.com/agrawalsuneet/SquareLoadersPack-Android)
+Check all other loaders [here](https://agrawalsuneet.github.io/agrawalsuneet/opensourcecontribution/)
 
 ## How To use
 include below dependency in build.gradle of application and compile it
